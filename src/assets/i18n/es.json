@@ -1,6 +1,8 @@
 {
     "section": {
-        "personal_info": "Información personal"
+        "personal_info": "Información personal",
+        "stay_info": "Información de la estadía",
+        "additional_info": "Información adicional"
     },
     "form": {
         "first_name": "Nombre",
@@ -19,7 +21,10 @@
         "address": "Dirección",
         "city": "Ciudad",
         "state": "Provincia / Estado",
+        "country": "País",
         "document_front": "Documento frente",
-        "document_back": "Documento reverso"
+        "document_back": "Documento reverso",
+        "done": "Aceptar",
+        "cancel": "Cancelar"
     }
 }
