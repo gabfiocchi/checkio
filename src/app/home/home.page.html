@@ -1,20 +1,45 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+<ion-content>
+  <div class="cover">
+    <img src="/assets/images/banner.jpg" alt="">
   </div>
+  <ion-card class="brand">
+    <ion-card-header>
+      <div class="language">
+        <ion-card-title>
+          Hotel
+        </ion-card-title>
+        <!-- <ion-chip (click)="openLanguages($event)" *ngIf="currentLanguage">
+          <ion-icon name="globe"></ion-icon>
+          <ion-label>{{ currentLanguage.name }}</ion-label>
+        </ion-chip> -->
+      </div>
+      <ion-card-subtitle>
+        <ion-icon name="location-sharp"></ion-icon>
+        San Martin 820
+      </ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+  <form>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>
+          {{ 'section.personal_info' | translate }}
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="floating">
+            {{ 'form.first_name' | translate }}
+          </ion-label>
+          <ion-input name="first_name" type="text" enterkeyhint="next"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">
+            {{ 'form.last_name' | translate }}
+          </ion-label>
+          <ion-input name="last_name" type="text" enterkeyhint="next"></ion-input>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+  </form>
 </ion-content>

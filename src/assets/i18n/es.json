@@ -1,0 +1,25 @@
+{
+    "section": {
+        "personal_info": "Información personal"
+    },
+    "form": {
+        "first_name": "Nombre",
+        "last_name": "Apellido",
+        "nationality": "Nacionalidad",
+        "phone": "Teléfono",
+        "document_id": "Documento / Pasaporte",
+        "birthday": "Fecha de Nacimiento",
+        "gender": "Género",
+        "marital_status": "Estado Civil",
+        "check_in": "Fecha de Ingreso",
+        "check_out": "Fecha de Egreso",
+        "room_number": "Número Cuarto",
+        "room_type": "Tipo de Cuarto",
+        "arrival_details": "¿Cómo llegó a destino?",
+        "address": "Dirección",
+        "city": "Ciudad",
+        "state": "Provincia / Estado",
+        "document_front": "Documento frente",
+        "document_back": "Documento reverso"
+    }
+}
