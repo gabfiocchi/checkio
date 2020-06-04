@@ -162,6 +162,19 @@
           </ion-label>
           <ion-input name="country" type="text" enterkeyhint="next"></ion-input>
         </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">
+            {{ 'form.document_front' | translate }}
+          </ion-label>
+          <ion-input name="document_front" type="file" enterkeyhint="next"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">
+            {{ 'form.document_back' | translate }}
+          </ion-label>
+          <ion-input name="document_back" type="file" enterkeyhint="next"></ion-input>
+        </ion-item>
       </ion-card-content>
     </ion-card>
   </form>
