@@ -32,10 +32,13 @@ export class HomePage implements OnInit {
      *  a. que tenga un Hello, Welcome que cambie de palabra tipo iPhone.
      *  b. Listado para elegir los idiomas que están soportados, consultar el idioma del dispositivo para sugerir uno. 
      * 2. Agregar modal con la info general.
+     * 2b. Recuperar los datos de la reservar y hacer pre fill de lo que exista
      * 3. Mostrar modal de inicio al cambiar de idioma.
      * 4. Conectar las traducciones al backend.
      * 5. Conectar los formularios al backend.
      * 6. Ver si usamos API de autocompletar las direcciones.
+     * 7. Ver el responsive
+     * 8. ver el tema de las URL con params.
      */
   }
   async moreOptions() {
