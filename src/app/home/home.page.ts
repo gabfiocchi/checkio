@@ -72,7 +72,6 @@ export class HomePage implements OnInit {
     })
     const actionSheet = await this.actionSheetController.create({
       mode: 'md',
-      header: 'Contacto',
       buttons
     });
 
