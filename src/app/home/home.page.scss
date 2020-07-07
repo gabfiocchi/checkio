@@ -21,8 +21,8 @@
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
     box-shadow: none;
-    margin: 0 0 -20px;
-    transform: translate3d(0, -20px, 0);
+    margin: -20px 0;
+    // transform: translate3d(0, -20px, 0);
     div.language {
       display: flex;
       flex-direction: row;

@@ -1,23 +1,33 @@
 <ion-content>
-  <div class="cover">
-    <img src="/assets/images/banner.jpg" alt="">
+  <div class="cover" *ngIf="configuration?.background_image">
+    <img [src]="configuration?.background_image?.data?.full_url" [alt]="configuration?.name">
+    <ion-fab horizontal="end" vertical="bottom" slot="fixed" edge>
+      <!-- <ion-fab-button (click)="openMap()"> -->
+      <ion-fab-button color="light" (click)="moreOptions()">
+        <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
   </div>
   <ion-card class="brand">
     <ion-card-header>
       <div class="language">
         <ion-card-title>
-          Hotel
+          {{ configuration?.name }}
         </ion-card-title>
         <!-- <ion-chip (click)="openLanguages($event)" *ngIf="currentLanguage">
           <ion-icon name="globe"></ion-icon>
           <ion-label>{{ currentLanguage.name }}</ion-label>
         </ion-chip> -->
       </div>
-      <ion-card-subtitle>
+      <ion-card-subtitle *ngIf="configuration?.short_address">
         <ion-icon name="location-sharp"></ion-icon>
-        San Martin 820
+        {{ configuration?.short_address }}
       </ion-card-subtitle>
     </ion-card-header>
+    <!-- Va en el modal -->
+    <!-- <ion-card-content *ngIf="configuration?.general_info">
+      <div class="wyswyg" [innerHTML]="configuration?.general_info"></div>
+    </ion-card-content> -->
   </ion-card>
   <form>
     <ion-card>

@@ -3,7 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apirest: {
+    base: 'https://checkio.thinkapp.dev/api',
+    configuration: '/items/configuration?single=1&fields=*,background_image.data.*',
+    languages: '/items/languages?single=1',
+  }
 };
 
 /*
