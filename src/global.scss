@@ -25,11 +25,5 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
-.wyswyg {
-    blockquote {
-        border-left: 2px solid var(--ion-color-medium);
-        padding-left: 10px;
-        font-style: italic;
-        margin-left: 20px;
-    }
-}
+@import "./theme/action-sheet";
+@import "./theme/wyswyg";
