@@ -109,8 +109,9 @@ export class HomePage implements OnInit, OnDestroy {
         this.startCount();
       } else {
         current++;
+        
         this.welcomeMessage = cities[current];
       }
-    }, 1500);
+    }, 3000);
   }
 }

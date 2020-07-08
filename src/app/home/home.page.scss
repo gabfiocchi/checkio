@@ -22,9 +22,8 @@
   }
 
   .flash {
-    // animation: infinite flash 2s;
-    // transform-origin: center bottom;
-    // animation-duration: 2s; /* don't forget to set a duration! */
+    transform-origin: center bottom;
+    animation-duration: 2s; /* don't forget to set a duration! */
   }
   section.wrapper {
     box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
