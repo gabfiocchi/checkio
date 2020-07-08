@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ApirestService } from '../services/apirest.service';
 import { ActionSheetController } from '@ionic/angular';
 
@@ -7,9 +7,12 @@ import { ActionSheetController } from '@ionic/angular';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, OnDestroy {
   configuration;
+  welcomeMessage: string;
+  language;
   languages;
+  timer
   constructor(
     private apirestService: ApirestService,
     private actionSheetController: ActionSheetController,
@@ -17,6 +20,11 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.getData();
+    this.startCount();
+  }
+  ngOnDestroy() {
+    clearInterval(this.timer);
+    // clearTimeout(this.timerStop);
   }
   async getData() {
     const configuration = await this.apirestService.getConfiguration();
@@ -37,9 +45,12 @@ export class HomePage implements OnInit {
      * 4. Conectar las traducciones al backend.
      * 5. Conectar los formularios al backend.
      * 6. Ver si usamos API de autocompletar las direcciones.
-     * 7. Ver el responsive
      * 8. ver el tema de las URL con params.
      */
+  }
+  setLanguage(language) {
+    console.log('language', language)
+    this.language = language;
   }
   async moreOptions() {
     const buttons = [];
@@ -67,7 +78,7 @@ export class HomePage implements OnInit {
       text: 'Cambiar idioma',
       icon: 'language-sharp',
       handler: () => {
-        console.log('change')
+        this.language = null;
       }
     })
     const actionSheet = await this.actionSheetController.create({
@@ -77,5 +88,29 @@ export class HomePage implements OnInit {
     });
 
     await actionSheet.present();
+  }
+
+  startCount() {
+    clearInterval(this.timer);
+    const cities = [
+      'Bienvenidos', // bievenidos
+      'Welcome', // ingles
+      'Bem-vinda', // portugues
+      'Bienvenue', // frances
+      'Benvenuto', // italiano
+      'Willkommen', // aleman
+    ];
+    let current = 0;
+
+    this.welcomeMessage = cities[current];
+    this.timer = setInterval(() => {
+      if (current === cities.length - 1) {
+        clearInterval(this.timer);
+        this.startCount();
+      } else {
+        current++;
+        this.welcomeMessage = cities[current];
+      }
+    }, 1500);
   }
 }

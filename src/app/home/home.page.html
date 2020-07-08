@@ -1,5 +1,22 @@
 <ion-content>
-  <main>
+  <section class="startup ion-text-center" *ngIf="!language">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>
+          {{ welcomeMessage }}
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item *ngFor="let language of languages" lines="full" button (click)="setLanguage(language)">
+            {{ language.name }}
+          </ion-item>
+          <ion-spinner *ngIf="!languages"></ion-spinner>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </section>
+  <section class="wrapper" *ngIf="language">
     <div class="cover" *ngIf="configuration?.background_image">
       <img [src]="configuration?.background_image?.data?.full_url" [alt]="configuration?.name">
       <ion-fab horizontal="end" vertical="bottom" slot="fixed" edge>
@@ -142,7 +159,7 @@
         </ion-card-content>
       </ion-card>
     </form>
-  </main>
+  </section>
 </ion-content>
 <!-- 
   TODO:

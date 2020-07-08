@@ -1,6 +1,33 @@
 :host {
-  main {
-    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.15);
+  .startup {
+    margin: 32px auto;
+    max-width: 600px;
+  }
+
+  @keyframes flash {
+    from,
+    50%,
+    to {
+      opacity: 1;
+    }
+
+    25%,
+    75% {
+      opacity: 0;
+    }
+  }
+
+  .flash {
+    animation-name: flash;
+  }
+
+  .flash {
+    // animation: infinite flash 2s;
+    // transform-origin: center bottom;
+    // animation-duration: 2s; /* don't forget to set a duration! */
+  }
+  section.wrapper {
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
     margin: auto;
     max-width: 600px;
     padding-bottom: 32px;
