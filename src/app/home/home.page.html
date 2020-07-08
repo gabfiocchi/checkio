@@ -1,146 +1,148 @@
 <ion-content>
-  <div class="cover" *ngIf="configuration?.background_image">
-    <img [src]="configuration?.background_image?.data?.full_url" [alt]="configuration?.name">
-    <ion-fab horizontal="end" vertical="bottom" slot="fixed" edge>
-      <!-- <ion-fab-button (click)="openMap()"> -->
-      <ion-fab-button color="light" (click)="moreOptions()">
-        <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
-  </div>
-  <ion-card class="brand">
-    <ion-card-header>
-      <div class="language">
-        <ion-card-title>
-          {{ configuration?.name }}
-        </ion-card-title>
-        <!-- <ion-chip (click)="openLanguages($event)" *ngIf="currentLanguage">
-          <ion-icon name="globe"></ion-icon>
-          <ion-label>{{ currentLanguage.name }}</ion-label>
-        </ion-chip> -->
-      </div>
-      <ion-card-subtitle *ngIf="configuration?.short_address">
-        <ion-icon name="location-sharp"></ion-icon>
-        {{ configuration?.short_address }}
-      </ion-card-subtitle>
-    </ion-card-header>
-    <!-- Va en el modal -->
-    <!-- <ion-card-content *ngIf="configuration?.general_info">
-      <div class="wyswyg" [innerHTML]="configuration?.general_info"></div>
-    </ion-card-content> -->
-  </ion-card>
-  <form>
-    <ion-card>
+  <main>
+    <div class="cover" *ngIf="configuration?.background_image">
+      <img [src]="configuration?.background_image?.data?.full_url" [alt]="configuration?.name">
+      <ion-fab horizontal="end" vertical="bottom" slot="fixed" edge>
+        <!-- <ion-fab-button (click)="openMap()"> -->
+        <ion-fab-button color="light" (click)="moreOptions()">
+          <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+    </div>
+    <ion-card class="brand">
       <ion-card-header>
-        <ion-card-title>
-          {{ 'section.personal_info' | translate }}
-        </ion-card-title>
+        <div class="language">
+          <ion-card-title>
+            {{ configuration?.name }}
+          </ion-card-title>
+          <!-- <ion-chip (click)="openLanguages($event)" *ngIf="currentLanguage">
+            <ion-icon name="globe"></ion-icon>
+            <ion-label>{{ currentLanguage.name }}</ion-label>
+          </ion-chip> -->
+        </div>
+        <ion-card-subtitle *ngIf="configuration?.short_address">
+          <ion-icon name="location-sharp"></ion-icon>
+          {{ configuration?.short_address }}
+        </ion-card-subtitle>
       </ion-card-header>
-      <ion-card-content>
-        <ion-item>
-          <ion-label position="floating">
-            {{ 'form.first_name' | translate }}
-          </ion-label>
-          <ion-input name="first_name" type="text" enterkeyhint="next"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">
-            {{ 'form.last_name' | translate }}
-          </ion-label>
-          <ion-input name="last_name" type="text" enterkeyhint="next"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">
-            {{ 'form.nationality' | translate }}
-          </ion-label>
-          <ion-input name="nationality" type="text" enterkeyhint="next"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">
-            {{ 'form.phone' | translate }}
-          </ion-label>
-          <ion-input name="phone" type="tel" enterkeyhint="next"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">
-            {{ 'form.document_id' | translate }}
-          </ion-label>
-          <ion-input name="document_id" type="text" enterkeyhint="next"></ion-input>
-        </ion-item>
-        <!-- TODO: date -->
-        <!-- TODO: de hoy para atrás -->
-        <ion-item>
-          <ion-label position="floating">
-            {{ 'form.birthday' | translate }}
-          </ion-label>
-          <!-- <ion-input name="birthday" type="text" enterkeyhint="next" autocomplete="bday"></ion-input> -->
-          <ion-datetime name="birthday" [cancelText]="'form.cancel' | translate" [doneText]="'form.done' | translate">
-          </ion-datetime>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">
-            {{ 'form.gender' | translate }}
-          </ion-label>
-          <ion-input name="gender" type="text" enterkeyhint="next" autocomplete="sex"></ion-input>
-        </ion-item>
-        <!-- TODO: select -->
-        <ion-item>
-          <ion-label position="floating">
-            {{ 'form.marital_status' | translate }}
-          </ion-label>
-          <ion-input name="marital_status" type="text" enterkeyhint="next"></ion-input>
-        </ion-item>
-      </ion-card-content>
+      <!-- Va en el modal -->
+      <!-- <ion-card-content *ngIf="configuration?.general_info">
+        <div class="wyswyg" [innerHTML]="configuration?.general_info"></div>
+      </ion-card-content> -->
     </ion-card>
+    <form>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>
+            {{ 'section.personal_info' | translate }}
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-item>
+            <ion-label position="floating">
+              {{ 'form.first_name' | translate }}
+            </ion-label>
+            <ion-input name="first_name" type="text" enterkeyhint="next"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">
+              {{ 'form.last_name' | translate }}
+            </ion-label>
+            <ion-input name="last_name" type="text" enterkeyhint="next"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">
+              {{ 'form.nationality' | translate }}
+            </ion-label>
+            <ion-input name="nationality" type="text" enterkeyhint="next"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">
+              {{ 'form.phone' | translate }}
+            </ion-label>
+            <ion-input name="phone" type="tel" enterkeyhint="next"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">
+              {{ 'form.document_id' | translate }}
+            </ion-label>
+            <ion-input name="document_id" type="text" enterkeyhint="next"></ion-input>
+          </ion-item>
+          <!-- TODO: date -->
+          <!-- TODO: de hoy para atrás -->
+          <ion-item>
+            <ion-label position="floating">
+              {{ 'form.birthday' | translate }}
+            </ion-label>
+            <!-- <ion-input name="birthday" type="text" enterkeyhint="next" autocomplete="bday"></ion-input> -->
+            <ion-datetime name="birthday" [cancelText]="'form.cancel' | translate" [doneText]="'form.done' | translate">
+            </ion-datetime>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">
+              {{ 'form.gender' | translate }}
+            </ion-label>
+            <ion-input name="gender" type="text" enterkeyhint="next" autocomplete="sex"></ion-input>
+          </ion-item>
+          <!-- TODO: select -->
+          <ion-item>
+            <ion-label position="floating">
+              {{ 'form.marital_status' | translate }}
+            </ion-label>
+            <ion-input name="marital_status" type="text" enterkeyhint="next"></ion-input>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
 
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>
-          {{ 'section.additional_info' | translate }}
-        </ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <!-- TODO: autocomplete -->
-        <ion-item>
-          <ion-label position="floating">
-            {{ 'form.address' | translate }}
-          </ion-label>
-          <ion-input name="address" type="text" enterkeyhint="next"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">
-            {{ 'form.city' | translate }}
-          </ion-label>
-          <ion-input name="city" type="text" enterkeyhint="next"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">
-            {{ 'form.state' | translate }}
-          </ion-label>
-          <ion-input name="state" type="text" enterkeyhint="next"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">
-            {{ 'form.country' | translate }}
-          </ion-label>
-          <ion-input name="country" type="text" enterkeyhint="next"></ion-input>
-        </ion-item>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>
+            {{ 'section.additional_info' | translate }}
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <!-- TODO: autocomplete -->
+          <ion-item>
+            <ion-label position="floating">
+              {{ 'form.address' | translate }}
+            </ion-label>
+            <ion-input name="address" type="text" enterkeyhint="next"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">
+              {{ 'form.city' | translate }}
+            </ion-label>
+            <ion-input name="city" type="text" enterkeyhint="next"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">
+              {{ 'form.state' | translate }}
+            </ion-label>
+            <ion-input name="state" type="text" enterkeyhint="next"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">
+              {{ 'form.country' | translate }}
+            </ion-label>
+            <ion-input name="country" type="text" enterkeyhint="next"></ion-input>
+          </ion-item>
 
-        <ion-item>
-          <ion-label position="stacked">
-            {{ 'form.document_front' | translate }}
-          </ion-label>
-          <ion-input name="document_front" type="file" enterkeyhint="next"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">
-            {{ 'form.document_back' | translate }}
-          </ion-label>
-          <ion-input name="document_back" type="file" enterkeyhint="next"></ion-input>
-        </ion-item>
-      </ion-card-content>
-    </ion-card>
-  </form>
+          <ion-item>
+            <ion-label position="stacked">
+              {{ 'form.document_front' | translate }}
+            </ion-label>
+            <ion-input name="document_front" type="file" enterkeyhint="next"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">
+              {{ 'form.document_back' | translate }}
+            </ion-label>
+            <ion-input name="document_back" type="file" enterkeyhint="next"></ion-input>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+    </form>
+  </main>
 </ion-content>
 <!-- 
   TODO:
