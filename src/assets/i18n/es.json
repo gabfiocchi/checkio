@@ -13,7 +13,7 @@
     "steps": {
         "main_guest": "Huésped principal",
         "additional_guests": "Huéspedes adicionales",
-        "trip_reasons": "Razón del viaje",
+        "trip_reasons": "Sobre su viaje",
         "guests_health_declaration": "Declaración Jurada de Salud"
     },
     "form": {
@@ -49,6 +49,7 @@
         "signature": "Firma",
         "done": "Aceptar",
         "cancel": "Cancelar",
+        "accept": "Sí, acepto",
         "previous": "Anterior",
         "next": "Siguiente",
         "finish": "Terminar"
