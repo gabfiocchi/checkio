@@ -21,9 +21,11 @@
     animation-name: flash;
   }
 
-  .flash {
+  .animate {
     transform-origin: center bottom;
-    animation-duration: 2s; /* don't forget to set a duration! */
+    // animation-iteration-count: infinite;
+    animation-duration: 2s;
+    animation-fill-mode: both;
   }
   section.wrapper {
     box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
@@ -65,13 +67,26 @@
   }
   form {
     ion-card-header {
-      padding-bottom: 0;
+      padding-bottom: 8px;
     }
     ion-card-title {
       font-size: 20px;
     }
+    ion-list-header {
+      font-size: 18px;
+      margin-top: 32px;
+      padding-left: 0;
+    }
     ion-item {
       --padding-start: 0;
+    }
+    ion-card-content.footer {
+      display: flex;
+      padding-top: 0;
+      .end {
+        justify-self: flex-end;
+        margin-left: auto;
+      }
     }
   }
 }

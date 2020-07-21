@@ -14,7 +14,11 @@ export class ApirestService {
   getLanguages() {
     return this.http.get<any>(environment.apirest.base + environment.apirest.languages).toPromise();
   }
-  getConfiguration() {
+  getConfiguration(lodging) {
+    console.log('lodging', lodging);
     return this.http.get<any>(environment.apirest.base + environment.apirest.configuration).toPromise();
+  }
+  getReservation(code) {
+    return this.http.get<any>(environment.apirest.base + environment.apirest.reservation + code).toPromise();
   }
 }

@@ -1,0 +1,8 @@
+{
+    "steps": {
+        "main_guest": "Main Guest",
+        "additional_guests": "Additional Guests",
+        "trip_reasons": "Trip Reasons",
+        "guests_health_declaration": "Guests Health Declaration"
+    }
+}

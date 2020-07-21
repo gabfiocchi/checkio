@@ -1,30 +1,67 @@
 {
     "section": {
-        "personal_info": "Información personal",
-        "stay_info": "Información de la estadía",
-        "additional_info": "Información adicional"
+        "terms_conditions": "Antes de continuar tienes que revisar las normas del lugar.",
+        "main_guest": {
+            "additional": "Información adicional",
+            "contact": "Información de contacto",
+            "personal": "Información personal"
+        },
+        "additional_guests": {
+            "guest_info": "Huésped #{{number}}"
+        }
+    },
+    "steps": {
+        "main_guest": "Huésped principal",
+        "additional_guests": "Huéspedes adicionales",
+        "trip_reasons": "Razón del viaje",
+        "guests_health_declaration": "Declaración Jurada de Salud"
     },
     "form": {
         "first_name": "Nombre",
         "last_name": "Apellido",
         "nationality": "Nacionalidad",
+        "email": "Correo electrónico",
         "phone": "Teléfono",
         "document_id": "Documento / Pasaporte",
         "birthday": "Fecha de Nacimiento",
         "gender": "Género",
         "marital_status": "Estado Civil",
+        "profression": "Profesión",
         "check_in": "Fecha de Ingreso",
         "check_out": "Fecha de Egreso",
-        "room_number": "Número Cuarto",
-        "room_type": "Tipo de Cuarto",
+        "travel_purpose": "Motivos del viaje",
+        "last_city_visited": "Última ciudad visitada",
         "arrival_details": "¿Cómo llegó a destino?",
+        "arrival_details_comments": {
+            "boat": "Empresa",
+            "bus": "Empresa",
+            "car": "Tipo / Patente / Color",
+            "plane": "Número de vuelo"
+        },
         "address": "Dirección",
         "city": "Ciudad",
         "state": "Provincia / Estado",
         "country": "País",
+        "zip_code": "Código postal",
+        "documents_required": "Documentos requeridos",
         "document_front": "Documento frente",
         "document_back": "Documento reverso",
+        "signature": "Firma",
         "done": "Aceptar",
-        "cancel": "Cancelar"
+        "cancel": "Cancelar",
+        "previous": "Anterior",
+        "next": "Siguiente",
+        "finish": "Terminar"
+    },
+    "health_declaration": {
+        "high_fever": "Fiebre alta",
+        "sore_throat": "Dolor de garganta",
+        "cough": "Tos",
+        "respiratory_distress": "Dificultad respiratoria",
+        "smell_loss": "Pérdida de olor",
+        "Taste_Loss": "Pérdida del sabor",
+        "pneumonia": "Neumonía",
+        "cities_last_weeks": "¿Cuáles fueron las últimas ciudades o países visitados en los últimos 14 días?",
+        "covid_contact": "¿Has estado en contacto con un COVID-19 positivo en los últimos 14 días?"
     }
 }

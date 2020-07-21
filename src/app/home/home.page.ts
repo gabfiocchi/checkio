@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ApirestService } from '../services/apirest.service';
 import { ActionSheetController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
@@ -10,12 +12,21 @@ import { ActionSheetController } from '@ionic/angular';
 export class HomePage implements OnInit, OnDestroy {
   configuration;
   welcomeMessage: string;
+  welcomeMessageAnimate: boolean;
   language;
   languages;
   timer
+  lodging;
+  reservation_code;
+  reservation;
+  additional_guests;
+  healthDeclaration;
+  step;
   constructor(
     private apirestService: ApirestService,
+    private route: ActivatedRoute,
     private actionSheetController: ActionSheetController,
+    private translateService: TranslateService,
   ) { }
 
   ngOnInit() {
@@ -27,13 +38,22 @@ export class HomePage implements OnInit, OnDestroy {
     // clearTimeout(this.timerStop);
   }
   async getData() {
-    const configuration = await this.apirestService.getConfiguration();
+    this.step = 0;
+    this.lodging = this.route.snapshot.paramMap.get('lodging');
+    this.reservation_code = this.route.snapshot.paramMap.get('reservation_code');
+    console.log('lodging', this.lodging, this.reservation_code)
+    const configuration = await this.apirestService.getConfiguration(this.lodging);
     const languages = await this.apirestService.getLanguages();
+    const reservation = await this.apirestService.getReservation(this.reservation_code);
 
     this.configuration = configuration.data;
     this.languages = languages.data;
     console.log('configuration', this.configuration);
     console.log('languages', this.languages);
+    console.log('reservation', reservation);
+    this.reservation = reservation.data;
+    this.additional_guests = new Array(this.reservation.room_pax);
+    this.setHealthDeclaration();
     /**
      * TODO:
      * 1. Mostrar primera pantalla del modal bloqueada para que seleccionen el idioma.
@@ -45,7 +65,6 @@ export class HomePage implements OnInit, OnDestroy {
      * 4. Conectar las traducciones al backend.
      * 5. Conectar los formularios al backend.
      * 6. Ver si usamos API de autocompletar las direcciones.
-     * 8. ver el tema de las URL con params.
      */
   }
   setLanguage(language) {
@@ -109,9 +128,41 @@ export class HomePage implements OnInit, OnDestroy {
         this.startCount();
       } else {
         current++;
-        
+        this.welcomeMessageAnimate = true;
         this.welcomeMessage = cities[current];
+        setTimeout(() => {
+          this.welcomeMessageAnimate = false;
+        }, 2000);
       }
     }, 3000);
+  }
+
+  async setHealthDeclaration() {
+    this.healthDeclaration = [{
+      label: await this.translateService.get('health_declaration.high_fever').toPromise(),
+    }, {
+      label: await this.translateService.get('health_declaration.sore_throat').toPromise(),
+    }, {
+      label: await this.translateService.get('health_declaration.cough').toPromise(),
+    }, {
+      label: await this.translateService.get('health_declaration.respiratory_distress').toPromise(),
+    }, {
+      label: await this.translateService.get('health_declaration.smell_loss').toPromise(),
+    }, {
+      label: await this.translateService.get('health_declaration.Taste_Loss').toPromise(),
+    }, {
+      label: await this.translateService.get('health_declaration.pneumonia').toPromise(),
+    }, {
+      label: await this.translateService.get('health_declaration.covid_contact').toPromise(),
+    }]
+  }
+  prevStep() {
+    this.step--;
+  }
+  nextStep() {
+    this.step++;
+  }
+  completeSteps() {
+    console.log('save')
   }
 }
