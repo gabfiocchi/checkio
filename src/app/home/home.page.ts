@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ApirestService } from '../services/apirest.service';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController, ModalController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { SignaturePadComponent } from '../modals/signature-pad/signature-pad.component';
 
 @Component({
   selector: 'app-home',
@@ -27,6 +28,7 @@ export class HomePage implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private actionSheetController: ActionSheetController,
     private translateService: TranslateService,
+    private modalController: ModalController
   ) { }
 
   ngOnInit() {
@@ -164,5 +166,12 @@ export class HomePage implements OnInit, OnDestroy {
   }
   completeSteps() {
     console.log('save')
+  }
+
+  async openSignatureModal() {
+    const modal = await this.modalController.create({
+      component: SignaturePadComponent
+    });
+    await modal.present();
   }
 }

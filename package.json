@@ -26,6 +26,7 @@
     "@ngx-translate/core": "^12.1.2",
     "@ngx-translate/http-loader": "^4.0.0",
     "rxjs": "~6.5.1",
+    "signature_pad": "^3.0.0-beta.3",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
   },

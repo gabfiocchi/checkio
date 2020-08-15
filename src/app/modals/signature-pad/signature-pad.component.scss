@@ -1,0 +1,12 @@
+:host {
+    .wrapper {
+        height: 100%;
+        padding: 16px;
+    }
+    canvas {
+        border: 1px solid var(--ion-color-light-shade);
+        border-radius: 4px;
+        height: 100%;
+        width: 100%;
+    }
+}

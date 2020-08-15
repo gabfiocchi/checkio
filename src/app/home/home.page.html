@@ -2,7 +2,7 @@
   <section class="startup ion-text-center" *ngIf="!language">
     <ion-card>
       <ion-card-header>
-        <ion-card-title class="flash" [ngClass]="{ 'animate': welcomeMessageAnimate }">
+        <ion-card-title (click)="openSignatureModal()" class="flash" [ngClass]="{ 'animate': welcomeMessageAnimate }">
           {{ welcomeMessage }}
         </ion-card-title>
       </ion-card-header>
@@ -192,11 +192,10 @@
             <ion-input name="document_back" type="file" enterkeyhint="next"></ion-input>
           </ion-item>
           <!-- firma -->
-          <ion-item>
+          <ion-item ion-button (click)="openSignatureModal()">
             <ion-label position="stacked">
               {{ 'form.signature' | translate }}
             </ion-label>
-            <ion-input name="signature" type="file" enterkeyhint="next"></ion-input>
           </ion-item>
         </ion-card-content>
         <ion-card-content class="footer">
