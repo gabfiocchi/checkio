@@ -5,9 +5,9 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'hotel-monaco/5my2415bl9hd'
+    redirectTo: '28yc5jmlcqrv'
   }, {
-    path: ':lodging/:reservation_code',
+    path: ':reservation_code',
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
   { path: '**', redirectTo: '' },

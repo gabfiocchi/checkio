@@ -17,7 +17,6 @@ export class HomePage implements OnInit, OnDestroy {
   language;
   languages;
   timer
-  lodging;
   reservation_code;
   reservation;
   additional_guests;
@@ -41,19 +40,17 @@ export class HomePage implements OnInit, OnDestroy {
   }
   async getData() {
     this.step = 0;
-    this.lodging = this.route.snapshot.paramMap.get('lodging');
     this.reservation_code = this.route.snapshot.paramMap.get('reservation_code');
-    console.log('lodging', this.lodging, this.reservation_code)
-    const configuration = await this.apirestService.getConfiguration(this.lodging);
-    const languages = await this.apirestService.getLanguages();
     const reservation = await this.apirestService.getReservation(this.reservation_code);
+    this.reservation = reservation.data;
+    const configuration = await this.apirestService.getConfiguration(this.reservation.parent.id);
+    const languages = await this.apirestService.getLanguages();
 
     this.configuration = configuration.data;
     this.languages = languages.data;
     console.log('configuration', this.configuration);
     console.log('languages', this.languages);
     console.log('reservation', reservation);
-    this.reservation = reservation.data;
     this.additional_guests = new Array(this.reservation.room_pax);
     this.setHealthDeclaration();
     /**
