@@ -28,18 +28,46 @@
         "document_number": "Número",
         "birthday": "Fecha de Nacimiento",
         "gender": "Género",
+        "genders": {
+            "male": "Másculino",
+            "female": "Femenino",
+            "transgender": "Transgénero",
+            "bigender": "Bigénero",
+            "non_binary": "No binario",
+            "other": "Otro"
+        },
         "marital_status": "Estado Civil",
-        "profression": "Profesión",
+        "marital_status_options": {
+            "single": "Soltero/a",
+            "married": "Casado/a",
+            "separated": "Separado/a",
+            "divorced": "Divorciado/a",
+            "widower": "Viudo/a"
+        },
+        "profression": "Ocupación",
         "check_in": "Fecha de Ingreso",
         "check_out": "Fecha de Egreso",
-        "travel_purpose": "Motivos del viaje",
+        "visiting_purpose": "Motivos del viaje",
+        "visiting_purpose_options": {
+            "turism": "Turismo",
+            "job": "Trabajo",
+            "other": "Otro"
+        },
         "last_city_visited": "Última ciudad visitada",
         "arrival_details": "¿Cómo llegó a destino?",
+        "arrival_details_options": {
+            "own_vehicle": "Vehículo propio",
+            "plane": "Avión",
+            "ship": "Barco",
+            "bus": "Omnibus",
+            "other": "Otro"
+        },
         "arrival_details_comments": {
-            "boat": "Empresa",
+            "own_vehicle": "Tipo / Patente / Color",
+            "plane": "Número de vuelo / Empresa",
+            "ship": "Empresa",
             "bus": "Empresa",
-            "car": "Tipo / Patente / Color",
-            "plane": "Número de vuelo"
+            "other": "Tipo / Comentarios"
         },
         "address": "Dirección",
         "city": "Ciudad",
@@ -67,6 +95,22 @@
         "pneumonia": "Neumonía",
         "cities_last_weeks": "¿Cuáles fueron las últimas ciudades o países visitados en los últimos 14 días?",
         "covid_contact": "¿Has estado en contacto con un COVID-19 positivo en los últimos 14 días?"
+    },
+    "months": {
+        "names": [
+            "Enero",
+            "Febrero",
+            "Marzo",
+            "Abril",
+            "Mayo",
+            "Junio",
+            "Julio",
+            "Agosto",
+            "Septiembre",
+            "Octubre",
+            "Noviembre",
+            "Diciembre"
+        ]
     },
     "signature_pad": {
         "title": "Firme en el recuadro",

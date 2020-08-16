@@ -21,4 +21,12 @@ export class ApirestService {
   getReservation(code) {
     return this.http.get<any>(environment.apirest.base + environment.apirest.reservation + code).toPromise();
   }
+
+  updateReservation(id: number, body) {
+    return this.http.patch<any>(environment.apirest.base + environment.apirest.reservationUpdate + id, body, {
+      headers: {
+        Authorization: 'Bearer web'
+      }
+    }).toPromise();
+  }
 }

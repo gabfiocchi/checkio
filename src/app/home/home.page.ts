@@ -3,7 +3,7 @@ import { ApirestService } from '../services/apirest.service';
 import { ActionSheetController, ModalController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { SignaturePadComponent } from '../modals/signature-pad/signature-pad.component';
 
 @Component({
@@ -165,7 +165,11 @@ export class HomePage implements OnInit, OnDestroy {
     this.step++;
   }
   completeSteps() {
-    console.log('save')
+    console.log('save', this.form.value)
+    this.apirestService.updateReservation(this.reservation.id, {
+      ...this.form.value,
+      code: this.reservation_code
+    });
   }
 
   private buildForm(): void {
@@ -195,6 +199,9 @@ export class HomePage implements OnInit, OnDestroy {
         phone: pax.guests_id.phone || null,
         profession: pax.guests_id.profession || null,
       })
+      if (pax.id) {
+        guests[index].addControl('id', new FormControl(pax.id));
+      }
     });
 
     this.form = this.formBuilder.group({

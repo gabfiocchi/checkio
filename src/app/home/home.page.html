@@ -109,9 +109,9 @@
             <ion-label position="floating" class="ion-text-wrap">
               {{ 'form.birthday' | translate }}
             </ion-label>
-            <!-- <ion-input name="birthday" type="text" enterkeyhint="next" autocomplete="bday"></ion-input> -->
-            <ion-datetime formControlName="birthdate" name="birthday" [cancelText]="'form.cancel' | translate"
-              [doneText]="'form.done' | translate">
+            <ion-datetime formControlName="birthdate" name="birthday" displayFormat="DD MMMM YYYY"
+              [cancelText]="'form.cancel' | translate" [doneText]="'form.done' | translate"
+              [monthNames]="'months.names' | translate">
             </ion-datetime>
           </ion-item>
           <!-- nationality -->
@@ -127,15 +127,32 @@
             <ion-label position="floating" class="ion-text-wrap">
               {{ 'form.gender' | translate }}
             </ion-label>
-            <ion-input name="gender" type="text" enterkeyhint="next" autocomplete="sex"></ion-input>
+            <ion-select interface="popover" formControlName="gender" name="gender">
+              <ion-select-option value="male">{{ 'form.genders.male' | translate }}</ion-select-option>
+              <ion-select-option value="female">{{ 'form.genders.female' | translate }}</ion-select-option>
+              <ion-select-option value="transgender">{{ 'form.genders.transgender' | translate }}</ion-select-option>
+              <ion-select-option value="bigender">{{ 'form.genders.bigender' | translate }}</ion-select-option>
+              <ion-select-option value="non_binary">{{ 'form.genders.non_binary' | translate }}</ion-select-option>
+              <ion-select-option value="other">{{ 'form.genders.other' | translate }}</ion-select-option>
+            </ion-select>
           </ion-item>
           <!-- marital status -->
-          <!-- selector Single/Casado/Viudo/Other -->
           <ion-item [formGroupName]="0">
             <ion-label position="floating" class="ion-text-wrap">
               {{ 'form.marital_status' | translate }}
             </ion-label>
-            <ion-input name="marital_status" type="text" enterkeyhint="next"></ion-input>
+            <ion-select interface="popover" formControlName="marital_status" name="marital_status">
+              <ion-select-option value="single">{{ 'form.marital_status_options.single' | translate }}
+              </ion-select-option>
+              <ion-select-option value="married">{{ 'form.marital_status_options.married' | translate }}
+              </ion-select-option>
+              <ion-select-option value="separated">{{ 'form.marital_status_options.separated' | translate }}
+              </ion-select-option>
+              <ion-select-option value="divorced">{{ 'form.marital_status_options.divorced' | translate }}
+              </ion-select-option>
+              <ion-select-option value="widower">{{ 'form.marital_status_options.widower' | translate }}
+              </ion-select-option>
+            </ion-select>
           </ion-item>
           <!-- profression -->
           <ion-item [formGroupName]="0">
@@ -270,9 +287,9 @@
               <ion-label position="floating" class="ion-text-wrap">
                 {{ 'form.birthday' | translate }}
               </ion-label>
-              <!-- <ion-input name="birthday" type="text" enterkeyhint="next" autocomplete="bday"></ion-input> -->
-              <ion-datetime formControlName="birthdate" name="birthday" [cancelText]="'form.cancel' | translate"
-                [doneText]="'form.done' | translate">
+              <ion-datetime formControlName="birthdate" name="birthday" displayFormat="DD MMMM YYYY"
+                [cancelText]="'form.cancel' | translate" [doneText]="'form.done' | translate"
+                [monthNames]="'months.names' | translate">
               </ion-datetime>
             </ion-item>
             <!-- email -->
@@ -289,7 +306,38 @@
               </ion-label>
               <ion-input formControlName="phone" name="phone" type="tel" enterkeyhint="next"></ion-input>
             </ion-item>
-            <!-- TOOD: Agregar situación marital -->
+            <!-- gender -->
+            <ion-item [formGroupName]="i + 1">
+              <ion-label position="floating" class="ion-text-wrap">
+                {{ 'form.gender' | translate }}
+              </ion-label>
+              <ion-select interface="popover" formControlName="gender" name="gender">
+                <ion-select-option value="male">{{ 'form.genders.male' | translate }}</ion-select-option>
+                <ion-select-option value="female">{{ 'form.genders.female' | translate }}</ion-select-option>
+                <ion-select-option value="transgender">{{ 'form.genders.transgender' | translate }}</ion-select-option>
+                <ion-select-option value="bigender">{{ 'form.genders.bigender' | translate }}</ion-select-option>
+                <ion-select-option value="non_binary">{{ 'form.genders.non_binary' | translate }}</ion-select-option>
+                <ion-select-option value="other">{{ 'form.genders.other' | translate }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <!-- marital status -->
+            <ion-item [formGroupName]="i + 1">
+              <ion-label position="floating" class="ion-text-wrap">
+                {{ 'form.marital_status' | translate }}
+              </ion-label>
+              <ion-select interface="popover" formControlName="marital_status" name="marital_status">
+                <ion-select-option value="single">{{ 'form.marital_status_options.single' | translate }}
+                </ion-select-option>
+                <ion-select-option value="married">{{ 'form.marital_status_options.married' | translate }}
+                </ion-select-option>
+                <ion-select-option value="separated">{{ 'form.marital_status_options.separated' | translate }}
+                </ion-select-option>
+                <ion-select-option value="divorced">{{ 'form.marital_status_options.divorced' | translate }}
+                </ion-select-option>
+                <ion-select-option value="widower">{{ 'form.marital_status_options.widower' | translate }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
             <!-- profression -->
             <ion-item [formGroupName]="i + 1">
               <ion-label position="floating" class="ion-text-wrap">
@@ -320,23 +368,41 @@
           <!-- TODO: action sheet: Turism / Job / Other -->
           <ion-item>
             <ion-label position="floating" class="ion-text-wrap">
-              {{ 'form.travel_purpose' | translate }}
+              {{ 'form.visiting_purpose' | translate }}
             </ion-label>
-            <ion-input name="travel_purpose" type="text" enterkeyhint="next"></ion-input>
+
+            <ion-select interface="popover" formControlName="visiting_purpose" name="visiting_purpose">
+              <ion-select-option value="turism">{{ 'form.visiting_purpose_options.turism' | translate }}
+              </ion-select-option>
+              <ion-select-option value="job">{{ 'form.visiting_purpose_options.job' | translate }}</ion-select-option>
+              <ion-select-option value="other">{{ 'form.visiting_purpose_options.other' | translate }}
+              </ion-select-option>
+            </ion-select>
           </ion-item>
           <!-- arrival_details -->
           <ion-item>
             <ion-label position="floating" class="ion-text-wrap">
               {{ 'form.arrival_details' | translate }}
             </ion-label>
-            <ion-input name="arrival_details" type="text" enterkeyhint="next"></ion-input>
+
+            <ion-select interface="popover" formControlName="arrived_by" name="arrival_details">
+              <ion-select-option value="own_vehicle">{{ 'form.arrival_details_options.own_vehicle' | translate }}
+              </ion-select-option>
+              <ion-select-option value="plane">{{ 'form.arrival_details_options.plane' | translate }}
+              </ion-select-option>
+              <ion-select-option value="ship">{{ 'form.arrival_details_options.ship' | translate }}</ion-select-option>
+              <ion-select-option value="bus">{{ 'form.arrival_details_options.bus' | translate }}</ion-select-option>
+              <ion-select-option value="other">{{ 'form.arrival_details_options.other' | translate }}
+              </ion-select-option>
+            </ion-select>
           </ion-item>
           <!-- arrival_details_comments. -->
-          <ion-item>
+          <ion-item *ngIf="form.value.arrived_by">
             <ion-label position="floating" class="ion-text-wrap">
-              {{ 'form.arrival_details_comments.car' | translate }}
+              {{ 'form.arrival_details_comments.' + form.value.arrived_by | translate }}
             </ion-label>
-            <ion-input name="arrival_details" type="text" enterkeyhint="next"></ion-input>
+            <ion-input formControlName="arrived_by_comments" name="arrival_details" type="text" enterkeyhint="next">
+            </ion-input>
           </ion-item>
           <!-- last_city_visited -->
           <ion-item>
