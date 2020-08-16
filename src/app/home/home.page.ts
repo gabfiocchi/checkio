@@ -3,6 +3,7 @@ import { ApirestService } from '../services/apirest.service';
 import { ActionSheetController, ModalController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { SignaturePadComponent } from '../modals/signature-pad/signature-pad.component';
 
 @Component({
@@ -22,12 +23,14 @@ export class HomePage implements OnInit, OnDestroy {
   additional_guests;
   healthDeclaration;
   step;
+  form: FormGroup;
   constructor(
     private apirestService: ApirestService,
     private route: ActivatedRoute,
     private actionSheetController: ActionSheetController,
     private translateService: TranslateService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private formBuilder: FormBuilder,
   ) { }
 
   ngOnInit() {
@@ -52,18 +55,18 @@ export class HomePage implements OnInit, OnDestroy {
     console.log('languages', this.languages);
     console.log('reservation', reservation);
     this.additional_guests = new Array(this.reservation.room_pax);
+    this.buildForm();
     this.setHealthDeclaration();
     /**
      * TODO:
      * 1. Mostrar primera pantalla del modal bloqueada para que seleccionen el idioma.
-     *  a. que tenga un Hello, Welcome que cambie de palabra tipo iPhone.
+    //  *  a. que tenga un Hello, Welcome que cambie de palabra tipo iPhone.
      *  b. Listado para elegir los idiomas que están soportados, consultar el idioma del dispositivo para sugerir uno. 
-     * 2. Agregar modal con la info general.
+    //  * 2. Agregar modal con la info general.
      * 2b. Recuperar los datos de la reservar y hacer pre fill de lo que exista
-     * 3. Mostrar modal de inicio al cambiar de idioma.
-     * 4. Conectar las traducciones al backend.
+    //  * 3. Mostrar modal de inicio al cambiar de idioma.
      * 5. Conectar los formularios al backend.
-     * 6. Ver si usamos API de autocompletar las direcciones.
+    //  * 6. Ver si usamos API de autocompletar las direcciones.
      */
   }
   setLanguage(language) {
@@ -165,10 +168,60 @@ export class HomePage implements OnInit, OnDestroy {
     console.log('save')
   }
 
+  private buildForm(): void {
+    console.log('this.reservation', this.reservation);
+
+    const guests = new Array(parseInt(this.reservation.room_pax));
+    console.log('guests', guests)
+
+    this.reservation.guests.forEach((pax, index) => {
+      console.log(pax.guests_id)
+
+      guests[index] = this.formBuilder.group({
+        first_name: pax.guests_id.first_name || null,
+        last_name: pax.guests_id.last_name || null,
+        email: pax.guests_id.email || null,
+        id_type: pax.guests_id.id_type || null,
+        id_number: pax.guests_id.id_number || null,
+        birthdate: pax.guests_id.birthdate || null,
+        address: pax.guests_id.address || null,
+        city: pax.guests_id.city || null,
+        country: pax.guests_id.country || null,
+        state: pax.guests_id.state || null,
+        zip_code: pax.guests_id.zip_code || null,
+        gender: pax.guests_id.gender || null,
+        marital_status: pax.guests_id.marital_status || null,
+        nationality: pax.guests_id.nationality || null,
+        phone: pax.guests_id.phone || null,
+        profession: pax.guests_id.profession || null,
+      })
+    });
+
+    this.form = this.formBuilder.group({
+      // email: [null, [Validators.required, Validators.pattern(VALIDATORS_REGEX.EMAIL)]],
+      arrived_by: [this.reservation.arrived_by || null],
+      arrived_by_comments: [this.reservation.arrived_by_comments || null],
+      visiting_purpose: [this.reservation.visiting_purpose || null],
+      guests: new FormArray(guests)
+    });
+
+    console.log('guests', this.form)
+  }
+
   async openSignatureModal() {
     const modal = await this.modalController.create({
-      component: SignaturePadComponent
+      component: SignaturePadComponent,
+      componentProps: {
+        translations: {
+          title: await this.translateService.get('signature_pad.title').toPromise(),
+          save: await this.translateService.get('signature_pad.save').toPromise(),
+          erase: await this.translateService.get('signature_pad.erase').toPromise()
+        }
+      }
     });
     await modal.present();
+
+    const { data } = await modal.onWillDismiss();
+    console.log('data', data)
   }
 }

@@ -45,7 +45,7 @@
       <!-- Va en el modal -->
       <!--  -->
     </ion-card>
-    <form>
+    <form [formGroup]="form">
       <!-- step terms -->
       <ion-card *ngIf="step === 0">
         <ion-card-header>
@@ -69,49 +69,61 @@
             {{ 'steps.main_guest' | translate }}
           </ion-card-title>
         </ion-card-header>
-        <ion-card-content>
+        <ion-card-content formArrayName="guests">
           <!-- first name -->
-          <ion-item>
+          <ion-item [formGroupName]="0">
             <ion-label position="floating" class="ion-text-wrap">
               {{ 'form.first_name' | translate }}
             </ion-label>
-            <ion-input name="first_name" type="text" enterkeyhint="next"></ion-input>
+            <ion-input formControlName="first_name" name="first_name" type="text" enterkeyhint="next"></ion-input>
           </ion-item>
           <!-- last name -->
-          <ion-item>
+          <ion-item [formGroupName]="0">
             <ion-label position="floating" class="ion-text-wrap">
               {{ 'form.last_name' | translate }}
             </ion-label>
-            <ion-input name="last_name" type="text" enterkeyhint="next"></ion-input>
+            <ion-input formControlName="last_name" name="last_name" type="text" enterkeyhint="next"></ion-input>
           </ion-item>
-          <!-- document id -->
-          <ion-item>
+          <!-- document type -->
+          <ion-item [formGroupName]="0">
             <ion-label position="floating" class="ion-text-wrap">
-              {{ 'form.document_id' | translate }}
+              {{ 'form.document_type' | translate }}
             </ion-label>
-            <ion-input name="document_id" type="text" enterkeyhint="next"></ion-input>
+
+            <ion-select interface="popover" formControlName="id_type">
+              <ion-select-option value="id">{{ 'form.document_id' | translate }}</ion-select-option>
+              <ion-select-option value="passport">{{ 'form.document_passport' | translate }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <!-- document number -->
+          <ion-item [formGroupName]="0">
+            <ion-label position="floating" class="ion-text-wrap">
+              {{ 'form.document_number' | translate }}
+            </ion-label>
+            <ion-input formControlName="id_number" name="document_id" type="text" enterkeyhint="next"></ion-input>
           </ion-item>
           <!-- birthday -->
           <!-- TODO: date -->
           <!-- TODO: de hoy para atrás -->
-          <ion-item>
+          <ion-item [formGroupName]="0">
             <ion-label position="floating" class="ion-text-wrap">
               {{ 'form.birthday' | translate }}
             </ion-label>
             <!-- <ion-input name="birthday" type="text" enterkeyhint="next" autocomplete="bday"></ion-input> -->
-            <ion-datetime name="birthday" [cancelText]="'form.cancel' | translate" [doneText]="'form.done' | translate">
+            <ion-datetime formControlName="birthdate" name="birthday" [cancelText]="'form.cancel' | translate"
+              [doneText]="'form.done' | translate">
             </ion-datetime>
           </ion-item>
           <!-- nationality -->
-          <ion-item>
+          <ion-item [formGroupName]="0">
             <ion-label position="floating" class="ion-text-wrap">
               {{ 'form.nationality' | translate }}
             </ion-label>
-            <ion-input name="nationality" type="text" enterkeyhint="next"></ion-input>
+            <ion-input formControlName="nationality" name="nationality" type="text" enterkeyhint="next"></ion-input>
           </ion-item>
           <!-- gender -->
           <!-- selector Male/Female/Transgender/Bigender/Non-binary/Other -->
-          <ion-item>
+          <ion-item [formGroupName]="0">
             <ion-label position="floating" class="ion-text-wrap">
               {{ 'form.gender' | translate }}
             </ion-label>
@@ -119,60 +131,60 @@
           </ion-item>
           <!-- marital status -->
           <!-- selector Single/Casado/Viudo/Other -->
-          <ion-item>
+          <ion-item [formGroupName]="0">
             <ion-label position="floating" class="ion-text-wrap">
               {{ 'form.marital_status' | translate }}
             </ion-label>
             <ion-input name="marital_status" type="text" enterkeyhint="next"></ion-input>
           </ion-item>
           <!-- profression -->
-          <ion-item>
+          <ion-item [formGroupName]="0">
             <ion-label position="floating" class="ion-text-wrap">
               {{ 'form.profression' | translate }}
             </ion-label>
-            <ion-input name="profression" enterkeyhint="next"></ion-input>
+            <ion-input formControlName="profession" name="profression" enterkeyhint="next"></ion-input>
           </ion-item>
           <ion-list-header>
             {{ 'section.main_guest.contact' | translate }}
           </ion-list-header>
           <!-- email -->
-          <ion-item>
+          <ion-item [formGroupName]="0">
             <ion-label position="floating" class="ion-text-wrap">
               {{ 'form.email' | translate }}
             </ion-label>
-            <ion-input name="email" type="email" enterkeyhint="next"></ion-input>
+            <ion-input formControlName="email" name="email" type="email" enterkeyhint="next"></ion-input>
           </ion-item>
           <!-- phone -->
-          <ion-item>
+          <ion-item [formGroupName]="0">
             <ion-label position="floating" class="ion-text-wrap">
               {{ 'form.phone' | translate }}
             </ion-label>
-            <ion-input name="phone" type="tel" enterkeyhint="next"></ion-input>
+            <ion-input formControlName="phone" name="phone" type="tel" enterkeyhint="next"></ion-input>
           </ion-item>
           <ion-list-header>
             {{ 'section.main_guest.additional' | translate }}
           </ion-list-header>
           <!-- country -->
-          <ion-item>
+          <ion-item [formGroupName]="0">
             <ion-label position="floating" class="ion-text-wrap">
               {{ 'form.country' | translate }}
             </ion-label>
-            <ion-input name="country" type="text" enterkeyhint="next"></ion-input>
+            <ion-input formControlName="country" name="country" type="text" enterkeyhint="next"></ion-input>
           </ion-item>
           <!-- TODO: Autocompletar con google maps, y buscar provincia y ciudad -->
           <!-- Address -->
-          <ion-item>
+          <ion-item [formGroupName]="0">
             <ion-label position="floating" class="ion-text-wrap">
               {{ 'form.address' | translate }}
             </ion-label>
-            <ion-input name="address" type="text" enterkeyhint="next"></ion-input>
+            <ion-input formControlName="address" name="address" type="text" enterkeyhint="next"></ion-input>
           </ion-item>
           <!-- zip code -->
-          <ion-item>
+          <ion-item [formGroupName]="0">
             <ion-label position="floating" class="ion-text-wrap">
               {{ 'form.zip_code' | translate }}
             </ion-label>
-            <ion-input name="zip_code" type="text" enterkeyhint="next"></ion-input>
+            <ion-input formControlName="zip_code" name="zip_code" type="text" enterkeyhint="next"></ion-input>
           </ion-item>
           <ion-list-header>
             {{ 'form.documents_required' | translate }}
@@ -214,66 +226,78 @@
             {{ 'steps.additional_guests' | translate }}
           </ion-card-title>
         </ion-card-header>
-        <ion-card-content>
-          <div *ngFor="let guest of additional_guests | slice:1; let i = index;">
+        <ion-card-content formArrayName="guests">
+          <ng-container *ngFor="let guest of additional_guests | slice:1; let i = index;">
             <ion-list-header>
               {{ 'section.additional_guests.guest_info' | translate: { number: (i + 2) } }}
             </ion-list-header>
             <!-- first name -->
-            <ion-item>
+            <ion-item [formGroupName]="i + 1">
               <ion-label position="floating" class="ion-text-wrap">
                 {{ 'form.first_name' | translate }}
               </ion-label>
-              <ion-input name="first_name" type="text" enterkeyhint="next"></ion-input>
+              <ion-input formControlName="first_name" name="first_name" type="text" enterkeyhint="next"></ion-input>
             </ion-item>
             <!-- last name -->
-            <ion-item>
+            <ion-item [formGroupName]="i + 1">
               <ion-label position="floating" class="ion-text-wrap">
                 {{ 'form.last_name' | translate }}
               </ion-label>
-              <ion-input name="last_name" type="text" enterkeyhint="next"></ion-input>
+              <ion-input formControlName="last_name" name="last_name" type="text" enterkeyhint="next"></ion-input>
             </ion-item>
-            <!-- document id -->
-            <ion-item>
+            <!-- document type -->
+            <ion-item [formGroupName]="i + 1">
               <ion-label position="floating" class="ion-text-wrap">
-                {{ 'form.document_id' | translate }}
+                {{ 'form.document_type' | translate }}
               </ion-label>
-              <ion-input name="document_id" type="text" enterkeyhint="next"></ion-input>
+
+              <ion-select interface="popover" formControlName="id_type">
+                <ion-select-option value="id">{{ 'form.document_id' | translate }}</ion-select-option>
+                <ion-select-option value="passport">{{ 'form.document_passport' | translate }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <!-- document number -->
+            <ion-item [formGroupName]="i + 1">
+              <ion-label position="floating" class="ion-text-wrap">
+                {{ 'form.document_number' | translate }}
+              </ion-label>
+              <ion-input formControlName="id_number" name="document_id" type="text" enterkeyhint="next"></ion-input>
             </ion-item>
             <!-- birthday -->
             <!-- TODO: date -->
             <!-- TODO: de hoy para atrás -->
-            <ion-item>
+            <ion-item [formGroupName]="i + 1">
               <ion-label position="floating" class="ion-text-wrap">
                 {{ 'form.birthday' | translate }}
               </ion-label>
               <!-- <ion-input name="birthday" type="text" enterkeyhint="next" autocomplete="bday"></ion-input> -->
-              <ion-datetime name="birthday" [cancelText]="'form.cancel' | translate"
+              <ion-datetime formControlName="birthdate" name="birthday" [cancelText]="'form.cancel' | translate"
                 [doneText]="'form.done' | translate">
               </ion-datetime>
             </ion-item>
             <!-- email -->
-            <ion-item>
+            <ion-item [formGroupName]="i + 1">
               <ion-label position="floating" class="ion-text-wrap">
                 {{ 'form.email' | translate }}
               </ion-label>
-              <ion-input name="email" type="email" enterkeyhint="next"></ion-input>
+              <ion-input formControlName="email" name="email" type="email" enterkeyhint="next"></ion-input>
             </ion-item>
             <!-- phone -->
-            <ion-item>
+            <ion-item [formGroupName]="i + 1">
               <ion-label position="floating" class="ion-text-wrap">
                 {{ 'form.phone' | translate }}
               </ion-label>
-              <ion-input name="phone" type="tel" enterkeyhint="next"></ion-input>
+              <ion-input formControlName="phone" name="phone" type="tel" enterkeyhint="next"></ion-input>
             </ion-item>
+            <!-- TOOD: Agregar situación marital -->
             <!-- profression -->
-            <ion-item>
+            <ion-item [formGroupName]="i + 1">
               <ion-label position="floating" class="ion-text-wrap">
                 {{ 'form.profression' | translate }}
               </ion-label>
-              <ion-input name="profression" enterkeyhint="next"></ion-input>
+              <ion-input formControlName="profession" name="profression" enterkeyhint="next"></ion-input>
             </ion-item>
-          </div>
+          </ng-container>
         </ion-card-content>
         <ion-card-content class="footer">
           <ion-button fill="clear" size="small" (click)="prevStep()">

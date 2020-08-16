@@ -1,15 +1,24 @@
 <ion-content>
+  <ion-list-header>
+    {{ translations.title }}
+  </ion-list-header>
   <div class="wrapper">
-    <canvas #pad></canvas>
+    <div class="inner">
+      <canvas #pad></canvas>
+    </div>
   </div>
 </ion-content>
 <ion-footer class="ion-no-border">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button (click)="erasePad()" color="danger">Limpiar</ion-button>
+      <ion-button (click)="erase()" color="danger">
+        {{ translations.erase }}
+      </ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button>Guardar</ion-button>
+      <ion-button (click)="save()">
+        {{ translations.save }}
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>

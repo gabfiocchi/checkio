@@ -22,7 +22,10 @@
         "nationality": "Nacionalidad",
         "email": "Correo electrónico",
         "phone": "Teléfono",
-        "document_id": "Documento / Pasaporte",
+        "document_type": "Tipo de indetificación",
+        "document_id": "Documento",
+        "document_passport": "Pasaporte",
+        "document_number": "Número",
         "birthday": "Fecha de Nacimiento",
         "gender": "Género",
         "marital_status": "Estado Civil",
@@ -64,5 +67,10 @@
         "pneumonia": "Neumonía",
         "cities_last_weeks": "¿Cuáles fueron las últimas ciudades o países visitados en los últimos 14 días?",
         "covid_contact": "¿Has estado en contacto con un COVID-19 positivo en los últimos 14 días?"
+    },
+    "signature_pad": {
+        "title": "Firme en el recuadro",
+        "erase": "Limpiar",
+        "save": "Guardar"
     }
 }
