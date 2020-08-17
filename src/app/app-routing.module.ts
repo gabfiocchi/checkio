@@ -6,7 +6,8 @@ const routes: Routes = [
     path: '',
     pathMatch: 'full',
     redirectTo: '28yc5jmlcqrv'
-  }, {
+  },
+  {
     path: ':reservation_code',
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },

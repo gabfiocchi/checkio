@@ -116,5 +116,7 @@
         "title": "Firme en el recuadro",
         "erase": "Limpiar",
         "save": "Guardar"
-    }
+    },
+    "loading": "Cargando...",
+    "success": "Su reserva ha sido actualizada."
 }

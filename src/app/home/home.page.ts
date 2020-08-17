@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ApirestService } from '../services/apirest.service';
-import { ActionSheetController, ModalController } from '@ionic/angular';
-import { ActivatedRoute, RouteReuseStrategy } from '@angular/router';
+import { ActionSheetController, LoadingController, ModalController, NavController } from '@ionic/angular';
+import { ActivatedRoute, RouteReuseStrategy, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { SignaturePadComponent } from '../modals/signature-pad/signature-pad.component';
@@ -31,8 +31,11 @@ export class HomePage implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private actionSheetController: ActionSheetController,
     private translateService: TranslateService,
+    private loadingController: LoadingController,
     private modalController: ModalController,
     private formBuilder: FormBuilder,
+    private navController: NavController,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -44,7 +47,7 @@ export class HomePage implements OnInit, OnDestroy {
     // clearTimeout(this.timerStop);
   }
   async getData() {
-    this.step = 0;
+    this.step = 5;
     this.reservation_code = this.route.snapshot.paramMap.get('reservation_code');
     const reservation = await this.apirestService.getReservation(this.reservation_code);
     this.reservation = reservation.data;
@@ -61,14 +64,12 @@ export class HomePage implements OnInit, OnDestroy {
     this.setHealthDeclaration();
     /**
      * TODO:
-     * 1. Mostrar primera pantalla del modal bloqueada para que seleccionen el idioma.
     //  *  a. que tenga un Hello, Welcome que cambie de palabra tipo iPhone.
      *  b. Listado para elegir los idiomas que están soportados, consultar el idioma del dispositivo para sugerir uno. 
     //  * 2. Agregar modal con la info general.
-     * 2b. Recuperar los datos de la reservar y hacer pre fill de lo que exista
     //  * 3. Mostrar modal de inicio al cambiar de idioma.
-     * 5. Conectar los formularios al backend.
     //  * 6. Ver si usamos API de autocompletar las direcciones.
+    //  * Agregar el scroll to top al cambiar de formulario
      */
   }
   setLanguage(language) {
@@ -188,7 +189,7 @@ export class HomePage implements OnInit, OnDestroy {
     }
     this.step++;
   }
-  completeSteps() {
+  async completeSteps() {
     console.log('save', this.form.value)
     console.log('this.form.value.guests', this.form.value.guests)
     const formData = JSON.parse(JSON.stringify(this.form.value));
@@ -217,11 +218,23 @@ export class HomePage implements OnInit, OnDestroy {
       }
     });
     console.log('formData', formData.guests)
-    this.apirestService.updateReservation(this.reservation.id, formData);
+
+    const loading = await this.loadingController.create({
+      message: await this.translateService.get('loading').toPromise()
+    });
+    await loading.present();
     // code: this.reservation_code
     // TODO: Filter reservations by code
     // TODO: Filter guests empty
-    console.log('formData', formData)
+    try {
+      console.log('formData', formData)
+      const resp = await this.apirestService.updateReservation(this.reservation.id, formData);
+      console.log('resp', resp)
+      this.nextStep();
+    } catch (error) {
+
+    }
+    await loading.dismiss();
   }
 
   private buildForm(): void {

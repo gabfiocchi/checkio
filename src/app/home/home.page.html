@@ -519,10 +519,22 @@
         </ion-card-content>
       </ion-card>
     </form>
+    <ion-card *ngIf="step === 5">
+      <ion-card-header>
+        <ion-card-title>
+          {{ 'success' | translate }}
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <!-- Agregar fecha de reserva ingreso/egreso -->
+        <!-- dirección del hotel -->
+        <!-- <ion-list lines="full" inset="true">
+          <ion-item *ngFor="let language of languages" button (click)="setLanguage(language)">
+            {{ language.name }}
+          </ion-item>
+          <ion-spinner *ngIf="!languages"></ion-spinner>
+        </ion-list> -->
+      </ion-card-content>
+    </ion-card>
   </section>
 </ion-content>
-<!-- 
-  TODO:
-  - Documents ID pickers
-  - Additional persons
- -->
