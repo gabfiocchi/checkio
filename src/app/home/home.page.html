@@ -102,9 +102,31 @@
             </ion-label>
             <ion-input formControlName="id_number" name="document_id" type="text" enterkeyhint="next"></ion-input>
           </ion-item>
+          <!-- documento frente -->
+          <ion-item>
+            <ion-label position="stacked">
+              <h3>
+                {{ 'form.document_front' | translate }}
+              </h3>
+              <ion-input name="document_front" type="file" accept="image/*" (change)="updateImage($event, 0)"
+                enterkeyhint="next"></ion-input>
+              <img *ngIf="form.value.guests[0]?.document_front?.data"
+                [src]="form.value.guests[0]?.document_front?.data?.full_url" [alt]="'form.document_front' | translate">
+            </ion-label>
+          </ion-item>
+          <!-- documento atras -->
+          <ion-item>
+            <ion-label position="stacked">
+              <h3>
+                {{ 'form.document_back' | translate }}
+              </h3>
+              <ion-input name="document_back" type="file" accept="image/*" (change)="updateImage($event, 0)"
+                enterkeyhint="next"></ion-input>
+              <img *ngIf="form.value.guests[0]?.document_back?.data"
+                [src]="form.value.guests[0]?.document_back?.data?.full_url" [alt]="'form.document_back' | translate">
+            </ion-label>
+          </ion-item>
           <!-- birthday -->
-          <!-- TODO: date -->
-          <!-- TODO: de hoy para atrás -->
           <ion-item [formGroupName]="0">
             <ion-label position="floating" class="ion-text-wrap">
               {{ 'form.birthday' | translate }}
@@ -188,6 +210,20 @@
             </ion-label>
             <ion-input formControlName="country" name="country" type="text" enterkeyhint="next"></ion-input>
           </ion-item>
+          <!-- state -->
+          <ion-item [formGroupName]="0">
+            <ion-label position="floating" class="ion-text-wrap">
+              {{ 'form.state' | translate }}
+            </ion-label>
+            <ion-input formControlName="state" name="state" type="text" enterkeyhint="next"></ion-input>
+          </ion-item>
+          <!-- city -->
+          <ion-item [formGroupName]="0">
+            <ion-label position="floating" class="ion-text-wrap">
+              {{ 'form.city' | translate }}
+            </ion-label>
+            <ion-input formControlName="city" name="city" type="text" enterkeyhint="next"></ion-input>
+          </ion-item>
           <!-- TODO: Autocompletar con google maps, y buscar provincia y ciudad -->
           <!-- Address -->
           <ion-item [formGroupName]="0">
@@ -206,30 +242,6 @@
           <ion-list-header>
             {{ 'form.documents_required' | translate }}
           </ion-list-header>
-          <!-- documento frente -->
-          <ion-item>
-            <ion-label position="stacked">
-              <h3>
-                {{ 'form.document_front' | translate }}
-              </h3>
-              <ion-input name="document_front" type="file" accept="image/*" (change)="updateImage($event, 0)"
-                enterkeyhint="next"></ion-input>
-              <img *ngIf="form.value.guests[0]?.document_front?.data"
-                [src]="form.value.guests[0]?.document_front?.data?.full_url" [alt]="'form.document_front' | translate">
-            </ion-label>
-          </ion-item>
-          <!-- documento atras -->
-          <ion-item>
-            <ion-label position="stacked">
-              <h3>
-                {{ 'form.document_back' | translate }}
-              </h3>
-              <ion-input name="document_back" type="file" accept="image/*" (change)="updateImage($event, 0)"
-                enterkeyhint="next"></ion-input>
-              <img *ngIf="form.value.guests[0]?.document_back?.data"
-                [src]="form.value.guests[0]?.document_back?.data?.full_url" [alt]="'form.document_back' | translate">
-            </ion-label>
-          </ion-item>
           <!-- firma -->
           <ion-item ion-button (click)="openSignatureModal(0)">
             <ion-label>
@@ -294,9 +306,33 @@
               </ion-label>
               <ion-input formControlName="id_number" name="document_id" type="text" enterkeyhint="next"></ion-input>
             </ion-item>
+            <!-- documento frente -->
+            <ion-item>
+              <ion-label position="stacked">
+                <h3>
+                  {{ 'form.document_front' | translate }}
+                </h3>
+                <ion-input name="document_front" type="file" accept="image/*" (change)="updateImage($event, i + 1)"
+                  enterkeyhint="next"></ion-input>
+                <img *ngIf="form.value.guests[i + 1]?.document_front?.data"
+                  [src]="form.value.guests[i + 1]?.document_front?.data?.full_url"
+                  [alt]="'form.document_front' | translate">
+              </ion-label>
+            </ion-item>
+            <!-- documento atras -->
+            <ion-item>
+              <ion-label position="stacked">
+                <h3>
+                  {{ 'form.document_back' | translate }}
+                </h3>
+                <ion-input name="document_back" type="file" accept="image/*" (change)="updateImage($event, i + 1)"
+                  enterkeyhint="next"></ion-input>
+                <img *ngIf="form.value.guests[i + 1]?.document_back?.data"
+                  [src]="form.value.guests[i + 1]?.document_back?.data?.full_url"
+                  [alt]="'form.document_back' | translate">
+              </ion-label>
+            </ion-item>
             <!-- birthday -->
-            <!-- TODO: date -->
-            <!-- TODO: de hoy para atrás -->
             <ion-item [formGroupName]="i + 1">
               <ion-label position="floating" class="ion-text-wrap">
                 {{ 'form.birthday' | translate }}
