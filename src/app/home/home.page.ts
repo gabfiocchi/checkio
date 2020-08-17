@@ -208,11 +208,16 @@ export class HomePage implements OnInit, OnDestroy {
       if (args.signature && args.signature.id) {
         args.signature = args.signature.id;
       }
+      const health_declaration = args.health_declaration;
+
+      if (!health_declaration.id) {
+        delete health_declaration.id;
+      }
       return {
         guests_id: {
           ...args,
           id: guests_id,
-          health_declaration: [args.health_declaration]
+          health_declaration: [health_declaration]
         },
         id
       }
@@ -275,6 +280,7 @@ export class HomePage implements OnInit, OnDestroy {
         document_front: pax?.guests_id.document_front || null,
         signature: pax?.guests_id.signature || null,
         health_declaration: this.formBuilder.group({
+          id: paxHealthDeclaration?.id || null,
           address: paxHealthDeclaration?.address || null,
           clarification_of_signature: paxHealthDeclaration?.clarification_of_signature || null,
           cough: paxHealthDeclaration?.cough || false,
