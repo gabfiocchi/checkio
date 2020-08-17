@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ApirestService } from '../services/apirest.service';
 import { ActionSheetController, ModalController } from '@ionic/angular';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouteReuseStrategy } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { SignaturePadComponent } from '../modals/signature-pad/signature-pad.component';
@@ -166,43 +166,55 @@ export class HomePage implements OnInit, OnDestroy {
   }
   completeSteps() {
     console.log('save', this.form.value)
-    this.apirestService.updateReservation(this.reservation.id, {
-      ...this.form.value,
-      code: this.reservation_code
-    });
+    console.log('this.form.value.guests', this.form.value.guests)
+    const formData = JSON.parse(JSON.stringify(this.form.value));
+
+    formData.guests = formData.guests.map(({ id, guests_id, ...args }) => ({
+      guests_id: { ...args, id: guests_id }, id
+    }));
+    console.log('formData', formData.guests)
+    this.apirestService.updateReservation(this.reservation.id, formData);
+    // code: this.reservation_code
+
+    console.log('formData', formData)
   }
 
   private buildForm(): void {
     console.log('this.reservation', this.reservation);
 
-    const guests = new Array(parseInt(this.reservation.room_pax));
+    let guests: any = Array.from(Array(parseInt(this.reservation.room_pax)), (_, i) => i + 1)
     console.log('guests', guests)
 
-    this.reservation.guests.forEach((pax, index) => {
-      console.log(pax.guests_id)
 
-      guests[index] = this.formBuilder.group({
-        first_name: pax.guests_id.first_name || null,
-        last_name: pax.guests_id.last_name || null,
-        email: pax.guests_id.email || null,
-        id_type: pax.guests_id.id_type || null,
-        id_number: pax.guests_id.id_number || null,
-        birthdate: pax.guests_id.birthdate || null,
-        address: pax.guests_id.address || null,
-        city: pax.guests_id.city || null,
-        country: pax.guests_id.country || null,
-        state: pax.guests_id.state || null,
-        zip_code: pax.guests_id.zip_code || null,
-        gender: pax.guests_id.gender || null,
-        marital_status: pax.guests_id.marital_status || null,
-        nationality: pax.guests_id.nationality || null,
-        phone: pax.guests_id.phone || null,
-        profession: pax.guests_id.profession || null,
+    guests = guests.map((_, index) => {
+      const pax = this.reservation.guests[index];
+      const guestForm = this.formBuilder.group({
+        first_name: pax?.guests_id.first_name || null,
+        last_name: pax?.guests_id.last_name || null,
+        email: pax?.guests_id.email || null,
+        id_type: pax?.guests_id.id_type || null,
+        id_number: pax?.guests_id.id_number || null,
+        birthdate: pax?.guests_id.birthdate || null,
+        address: pax?.guests_id.address || null,
+        city: pax?.guests_id.city || null,
+        country: pax?.guests_id.country || null,
+        state: pax?.guests_id.state || null,
+        zip_code: pax?.guests_id.zip_code || null,
+        gender: pax?.guests_id.gender || null,
+        marital_status: pax?.guests_id.marital_status || null,
+        nationality: pax?.guests_id.nationality || null,
+        phone: pax?.guests_id.phone || null,
+        profession: pax?.guests_id.profession || null,
       })
-      if (pax.id) {
-        guests[index].addControl('id', new FormControl(pax.id));
+      if (pax?.id) {
+        guestForm.addControl('id', new FormControl(pax.id));
+        guestForm.addControl('guests_id', new FormControl(pax.guests_id.id));
       }
+
+      return guestForm;
     });
+
+    console.log('guests', guests)
 
     this.form = this.formBuilder.group({
       // email: [null, [Validators.required, Validators.pattern(VALIDATORS_REGEX.EMAIL)]],
