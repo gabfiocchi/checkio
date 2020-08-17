@@ -1,9 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { ApirestService } from '../services/apirest.service';
-import { ActionSheetController, LoadingController, ModalController, NavController } from '@ionic/angular';
-import { ActivatedRoute, RouteReuseStrategy, Router } from '@angular/router';
+import { ActionSheetController, LoadingController, ModalController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 import { SignaturePadComponent } from '../modals/signature-pad/signature-pad.component';
 import { FilesService } from '../services/files.service';
 
@@ -23,8 +23,9 @@ export class HomePage implements OnInit, OnDestroy {
   reservation;
   additional_guests;
   healthDeclaration;
-  step;
+  step: number = 0;
   form: FormGroup;
+  @ViewChild('content', { static: true, read: ElementRef }) content: ElementRef<HTMLIonContentElement>;
   constructor(
     private apirestService: ApirestService,
     private filesService: FilesService,
@@ -34,8 +35,6 @@ export class HomePage implements OnInit, OnDestroy {
     private loadingController: LoadingController,
     private modalController: ModalController,
     private formBuilder: FormBuilder,
-    private navController: NavController,
-    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -44,10 +43,8 @@ export class HomePage implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     clearInterval(this.timer);
-    // clearTimeout(this.timerStop);
   }
   async getData() {
-    // this.step = 5;
     this.step = 0;
     this.reservation_code = this.route.snapshot.paramMap.get('reservation_code');
     const reservation = await this.apirestService.getReservation(this.reservation_code);
@@ -72,6 +69,9 @@ export class HomePage implements OnInit, OnDestroy {
     //  * 6. Ver si usamos API de autocompletar las direcciones.
     //  * Agregar el scroll to top al cambiar de formulario
      */
+
+    // this.language = 'es';
+    // this.step = 5;
   }
   setLanguage(language) {
     console.log('language', language)
@@ -183,12 +183,14 @@ export class HomePage implements OnInit, OnDestroy {
       this.step--;
     }
     this.step--;
+    this.content.nativeElement.scrollToTop(300);
   }
   nextStep() {
     if (this.step === 1 && this.reservation.room_pax <= 1) {
       this.step++;
     }
     this.step++;
+    this.content.nativeElement.scrollToTop(300);
   }
   async completeSteps() {
     console.log('save', this.form.value)

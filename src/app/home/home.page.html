@@ -1,4 +1,4 @@
-<ion-content>
+<ion-content #content>
   <section class="startup ion-text-center" *ngIf="!language">
     <ion-card>
       <ion-card-header>
@@ -32,18 +32,16 @@
           <ion-card-title>
             {{ configuration?.name }}
           </ion-card-title>
-          <!-- <ion-chip (click)="openLanguages($event)" *ngIf="currentLanguage">
-            <ion-icon name="globe"></ion-icon>
-            <ion-label class="ion-text-wrap">{{ currentLanguage.name }}</ion-label>
-          </ion-chip> -->
         </div>
         <ion-card-subtitle *ngIf="configuration?.short_address">
           <ion-icon name="location-sharp"></ion-icon>
           {{ configuration?.short_address }}
         </ion-card-subtitle>
       </ion-card-header>
-      <!-- Va en el modal -->
-      <!--  -->
+      <ion-card-content>
+        <p *ngIf="reservation?.date_in" [innerHTML]="'check_in' | translate: { time: reservation?.date_in }"></p>
+        <p *ngIf="reservation?.date_out" [innerHTML]="'check_out' | translate: { time: reservation?.date_out }"></p>
+      </ion-card-content>
     </ion-card>
     <form [formGroup]="form">
       <!-- step terms -->
@@ -519,21 +517,15 @@
         </ion-card-content>
       </ion-card>
     </form>
-    <ion-card *ngIf="step === 5">
+    <ion-card *ngIf="step === 5" class="success">
+      <ion-icon color="success" name="checkmark-circle-outline"></ion-icon>
       <ion-card-header>
         <ion-card-title>
           {{ 'success' | translate }}
         </ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <!-- Agregar fecha de reserva ingreso/egreso -->
-        <!-- dirección del hotel -->
-        <!-- <ion-list lines="full" inset="true">
-          <ion-item *ngFor="let language of languages" button (click)="setLanguage(language)">
-            {{ language.name }}
-          </ion-item>
-          <ion-spinner *ngIf="!languages"></ion-spinner>
-        </ion-list> -->
+        <!-- TODO: Add reservation summary -->
       </ion-card-content>
     </ion-card>
   </section>

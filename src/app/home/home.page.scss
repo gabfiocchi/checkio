@@ -29,6 +29,7 @@
   }
   section.wrapper {
     box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
+    min-height: 100%;
     margin: auto;
     max-width: 600px;
     padding-bottom: 32px;
@@ -87,6 +88,17 @@
         justify-self: flex-end;
         margin-left: auto;
       }
+    }
+  }
+  .success {
+    text-align: center;
+    ion-card-title {
+      font-size: 20px;
+    }
+    ion-icon {
+      margin: 20px auto 0;
+      display: block;
+      font-size: 60px;
     }
   }
 }

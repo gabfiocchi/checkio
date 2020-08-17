@@ -118,5 +118,7 @@
         "save": "Guardar"
     },
     "loading": "Cargando...",
-    "success": "Su reserva ha sido actualizada."
+    "success": "Su reserva ha sido actualizada",
+    "check_in": "Fecha de Ingreso: <b>{{time}}</b>",
+    "check_out": "Fecha de Egreso: <b>{{time}}</b>"
 }
