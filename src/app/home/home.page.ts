@@ -64,10 +64,7 @@ export class HomePage implements OnInit, OnDestroy {
      * TODO:
     //  *  a. que tenga un Hello, Welcome que cambie de palabra tipo iPhone.
      *  b. Listado para elegir los idiomas que están soportados, consultar el idioma del dispositivo para sugerir uno. 
-    //  * 2. Agregar modal con la info general.
-    //  * 3. Mostrar modal de inicio al cambiar de idioma.
     //  * 6. Ver si usamos API de autocompletar las direcciones.
-    //  * Agregar el scroll to top al cambiar de formulario
      */
 
     // this.language = 'es';
