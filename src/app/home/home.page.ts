@@ -159,9 +159,15 @@ export class HomePage implements OnInit, OnDestroy {
     }]
   }
   prevStep() {
+    if (this.step === 3 && this.reservation.room_pax <= 1) {
+      this.step--;
+    }
     this.step--;
   }
   nextStep() {
+    if (this.step === 1 && this.reservation.room_pax <= 1) {
+      this.step++;
+    }
     this.step++;
   }
   completeSteps() {
@@ -175,7 +181,8 @@ export class HomePage implements OnInit, OnDestroy {
     console.log('formData', formData.guests)
     this.apirestService.updateReservation(this.reservation.id, formData);
     // code: this.reservation_code
-
+    // TODO: Filter reservations by code
+    // TODO: Filter guests empty
     console.log('formData', formData)
   }
 
@@ -205,6 +212,26 @@ export class HomePage implements OnInit, OnDestroy {
         nationality: pax?.guests_id.nationality || null,
         phone: pax?.guests_id.phone || null,
         profession: pax?.guests_id.profession || null,
+        health_declaration: this.formBuilder.group({
+          address: null,
+          clarification_of_signature: null,
+          cough: true,
+          covid_contact: null,
+          datetime_created: null,
+          high_fever: true,
+          id_number: null,
+          id_type: null,
+          lasts_places: null,
+          legal_figure: null,
+          legal_representative: null,
+          parent: null,
+          pneumonia: null,
+          respiratory_distress: null,
+          signature: null,
+          smell_loss: null,
+          sore_throat: true,
+          taste_loss: null,
+        })
       })
       if (pax?.id) {
         guestForm.addControl('id', new FormControl(pax.id));
