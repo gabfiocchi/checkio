@@ -499,11 +499,12 @@
                 <ion-label class="ion-text-wrap">{{entry.label}}</ion-label>
                 <ion-checkbox [formControlName]="entry.key" mode="md" slot="end"></ion-checkbox>
               </ion-item>
-              <ion-item>
+              <ion-item formGroupName="health_declaration">
                 <ion-label position="stacked" class="ion-text-wrap">
                   {{ 'health_declaration.cities_last_weeks' | translate }}
                 </ion-label>
-                <ion-textarea name="cities_last_weeks" enterkeyhint="next"></ion-textarea>
+                <ion-textarea name="cities_last_weeks" enterkeyhint="next" formControlName="lasts_places">
+                </ion-textarea>
               </ion-item>
             </ng-container>
           </div>
