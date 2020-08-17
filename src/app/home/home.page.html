@@ -2,7 +2,7 @@
   <section class="startup ion-text-center" *ngIf="!language">
     <ion-card>
       <ion-card-header>
-        <ion-card-title (click)="openSignatureModal()" class="flash" [ngClass]="{ 'animate': welcomeMessageAnimate }">
+        <ion-card-title class="flash" [ngClass]="{ 'animate': welcomeMessageAnimate }">
           {{ welcomeMessage }}
         </ion-card-title>
       </ion-card-header>
@@ -209,21 +209,35 @@
           <!-- documento frente -->
           <ion-item>
             <ion-label position="stacked">
-              {{ 'form.document_front' | translate }}
+              <h3>
+                {{ 'form.document_front' | translate }}
+              </h3>
+              <ion-input name="document_front" type="file" accept="image/*" (change)="updateImage($event, 0)"
+                enterkeyhint="next"></ion-input>
+              <img *ngIf="form.value.guests[0]?.document_front?.data"
+                [src]="form.value.guests[0]?.document_front?.data?.full_url" [alt]="'form.document_front' | translate">
             </ion-label>
-            <ion-input name="document_front" type="file" enterkeyhint="next"></ion-input>
           </ion-item>
           <!-- documento atras -->
           <ion-item>
             <ion-label position="stacked">
-              {{ 'form.document_back' | translate }}
+              <h3>
+                {{ 'form.document_back' | translate }}
+              </h3>
+              <ion-input name="document_back" type="file" accept="image/*" (change)="updateImage($event, 0)"
+                enterkeyhint="next"></ion-input>
+              <img *ngIf="form.value.guests[0]?.document_back?.data"
+                [src]="form.value.guests[0]?.document_back?.data?.full_url" [alt]="'form.document_back' | translate">
             </ion-label>
-            <ion-input name="document_back" type="file" enterkeyhint="next"></ion-input>
           </ion-item>
           <!-- firma -->
-          <ion-item ion-button (click)="openSignatureModal()">
-            <ion-label position="stacked">
-              {{ 'form.signature' | translate }}
+          <ion-item ion-button (click)="openSignatureModal(0)">
+            <ion-label>
+              <h3>
+                {{ 'form.signature' | translate }}
+              </h3>
+              <img *ngIf="form.value.guests[0]?.signature?.data" [src]="form.value.guests[0]?.signature?.data?.full_url"
+                [alt]="'form.signature' | translate">
             </ion-label>
           </ion-item>
         </ion-card-content>

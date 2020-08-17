@@ -5,6 +5,7 @@ import { ActivatedRoute, RouteReuseStrategy } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { SignaturePadComponent } from '../modals/signature-pad/signature-pad.component';
+import { FilesService } from '../services/files.service';
 
 @Component({
   selector: 'app-home',
@@ -26,6 +27,7 @@ export class HomePage implements OnInit, OnDestroy {
   form: FormGroup;
   constructor(
     private apirestService: ApirestService,
+    private filesService: FilesService,
     private route: ActivatedRoute,
     private actionSheetController: ActionSheetController,
     private translateService: TranslateService,
@@ -175,9 +177,28 @@ export class HomePage implements OnInit, OnDestroy {
     console.log('this.form.value.guests', this.form.value.guests)
     const formData = JSON.parse(JSON.stringify(this.form.value));
 
-    formData.guests = formData.guests.map(({ id, guests_id, ...args }) => ({
-      guests_id: { ...args, id: guests_id }, id
-    }));
+    formData.guests = formData.guests.map((
+      { id, guests_id, ...args }
+    ) => {
+
+      console.log('args', args)
+      if (args.document_back && args.document_back.id) {
+        args.document_back = args.document_back.id;
+      }
+      if (args.document_front && args.document_front.id) {
+        args.document_front = args.document_front.id;
+      }
+      if (args.signature && args.signature.id) {
+        args.signature = args.signature.id;
+      }
+      return {
+        guests_id: {
+          ...args,
+          id: guests_id
+        },
+        id
+      }
+    });
     console.log('formData', formData.guests)
     this.apirestService.updateReservation(this.reservation.id, formData);
     // code: this.reservation_code
@@ -212,26 +233,29 @@ export class HomePage implements OnInit, OnDestroy {
         nationality: pax?.guests_id.nationality || null,
         phone: pax?.guests_id.phone || null,
         profession: pax?.guests_id.profession || null,
-        health_declaration: this.formBuilder.group({
-          address: null,
-          clarification_of_signature: null,
-          cough: true,
-          covid_contact: null,
-          datetime_created: null,
-          high_fever: true,
-          id_number: null,
-          id_type: null,
-          lasts_places: null,
-          legal_figure: null,
-          legal_representative: null,
-          parent: null,
-          pneumonia: null,
-          respiratory_distress: null,
-          signature: null,
-          smell_loss: null,
-          sore_throat: true,
-          taste_loss: null,
-        })
+        document_back: pax?.guests_id.document_back || null,
+        document_front: pax?.guests_id.document_front || null,
+        signature: pax?.guests_id.signature || null,
+        // health_declaration: this.formBuilder.group({
+        //   address: null,
+        //   clarification_of_signature: null,
+        //   cough: true,
+        //   covid_contact: null,
+        //   datetime_created: null,
+        //   high_fever: true,
+        //   id_number: null,
+        //   id_type: null,
+        //   lasts_places: null,
+        //   legal_figure: null,
+        //   legal_representative: null,
+        //   parent: null,
+        //   pneumonia: null,
+        //   respiratory_distress: null,
+        //   signature: null,
+        //   smell_loss: null,
+        //   sore_throat: true,
+        //   taste_loss: null,
+        // })
       })
       if (pax?.id) {
         guestForm.addControl('id', new FormControl(pax.id));
@@ -244,7 +268,6 @@ export class HomePage implements OnInit, OnDestroy {
     console.log('guests', guests)
 
     this.form = this.formBuilder.group({
-      // email: [null, [Validators.required, Validators.pattern(VALIDATORS_REGEX.EMAIL)]],
       arrived_by: [this.reservation.arrived_by || null],
       arrived_by_comments: [this.reservation.arrived_by_comments || null],
       visiting_purpose: [this.reservation.visiting_purpose || null],
@@ -254,7 +277,10 @@ export class HomePage implements OnInit, OnDestroy {
     console.log('guests', this.form)
   }
 
-  async openSignatureModal() {
+  get guests() {
+    return this.form.get('guests') as FormArray;
+  }
+  async openSignatureModal(guestIndex) {
     const modal = await this.modalController.create({
       component: SignaturePadComponent,
       componentProps: {
@@ -268,6 +294,37 @@ export class HomePage implements OnInit, OnDestroy {
     await modal.present();
 
     const { data } = await modal.onWillDismiss();
-    console.log('data', data)
+
+    if (data && data.signature) {
+      try {
+        const filename = Date.now() + this.reservation_code;
+        const resp: any = await this.filesService.upload({
+          data: data.signature,
+          filename_disk: filename + '.jpg',
+          filename_download: filename + '.jpg'
+        });
+
+        (this.guests.at(guestIndex) as FormGroup).get('signature').patchValue(resp.data);
+      } catch (error) {
+        // TODO: Display error toast
+        console.log('error', error)
+      }
+    }
+  }
+
+  async updateImage(event, guestIndex) {
+    const field = event.target.name;
+    const file = event.target.files.item(0);
+
+    try {
+      const resp: any = await this.filesService.upload({
+        data: file
+      });
+
+      (this.guests.at(guestIndex) as FormGroup).get(field).patchValue(resp.data);
+    } catch (error) {
+      // TODO: Display error toast
+      console.log('error', error)
+    }
   }
 }
