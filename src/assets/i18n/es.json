@@ -91,7 +91,7 @@
         "cough": "Tos",
         "respiratory_distress": "Dificultad respiratoria",
         "smell_loss": "Pérdida de olor",
-        "Taste_Loss": "Pérdida del sabor",
+        "taste_Loss": "Pérdida del sabor",
         "pneumonia": "Neumonía",
         "cities_last_weeks": "¿Cuáles fueron las últimas ciudades o países visitados en los últimos 14 días?",
         "covid_contact": "¿Has estado en contacto con un COVID-19 positivo en los últimos 14 días?"

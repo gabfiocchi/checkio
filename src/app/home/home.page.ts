@@ -143,20 +143,36 @@ export class HomePage implements OnInit, OnDestroy {
 
   async setHealthDeclaration() {
     this.healthDeclaration = [{
+      // address
+      // clarification_of_signature
+      // id_number
+      // id_type
+      // lasts_places
+      // legal_figure
+      // legal_representative
+      // signature
+      key: 'high_fever',
       label: await this.translateService.get('health_declaration.high_fever').toPromise(),
     }, {
+      key: 'sore_throat',
       label: await this.translateService.get('health_declaration.sore_throat').toPromise(),
     }, {
+      key: 'cough',
       label: await this.translateService.get('health_declaration.cough').toPromise(),
     }, {
+      key: 'respiratory_distress',
       label: await this.translateService.get('health_declaration.respiratory_distress').toPromise(),
     }, {
+      key: 'smell_loss',
       label: await this.translateService.get('health_declaration.smell_loss').toPromise(),
     }, {
-      label: await this.translateService.get('health_declaration.Taste_Loss').toPromise(),
+      key: 'taste_loss',
+      label: await this.translateService.get('health_declaration.taste_Loss').toPromise(),
     }, {
+      key: 'pneumonia',
       label: await this.translateService.get('health_declaration.pneumonia').toPromise(),
     }, {
+      key: 'covid_contact',
       label: await this.translateService.get('health_declaration.covid_contact').toPromise(),
     }]
   }
@@ -194,7 +210,8 @@ export class HomePage implements OnInit, OnDestroy {
       return {
         guests_id: {
           ...args,
-          id: guests_id
+          id: guests_id,
+          health_declaration: [args.health_declaration]
         },
         id
       }
@@ -216,6 +233,14 @@ export class HomePage implements OnInit, OnDestroy {
 
     guests = guests.map((_, index) => {
       const pax = this.reservation.guests[index];
+      let paxHealthDeclaration = null;
+
+      if (pax?.guests_id?.health_declaration) {
+        const paxHealthDeclarations = pax?.guests_id?.health_declaration;
+
+        paxHealthDeclaration = paxHealthDeclarations[paxHealthDeclarations.length - 1];
+      }
+      console.log('paxHealthDeclaration', paxHealthDeclaration);
       const guestForm = this.formBuilder.group({
         first_name: pax?.guests_id.first_name || null,
         last_name: pax?.guests_id.last_name || null,
@@ -236,27 +261,26 @@ export class HomePage implements OnInit, OnDestroy {
         document_back: pax?.guests_id.document_back || null,
         document_front: pax?.guests_id.document_front || null,
         signature: pax?.guests_id.signature || null,
-        // health_declaration: this.formBuilder.group({
-        //   address: null,
-        //   clarification_of_signature: null,
-        //   cough: true,
-        //   covid_contact: null,
-        //   datetime_created: null,
-        //   high_fever: true,
-        //   id_number: null,
-        //   id_type: null,
-        //   lasts_places: null,
-        //   legal_figure: null,
-        //   legal_representative: null,
-        //   parent: null,
-        //   pneumonia: null,
-        //   respiratory_distress: null,
-        //   signature: null,
-        //   smell_loss: null,
-        //   sore_throat: true,
-        //   taste_loss: null,
-        // })
+        health_declaration: this.formBuilder.group({
+          address: paxHealthDeclaration?.address || null,
+          clarification_of_signature: paxHealthDeclaration?.clarification_of_signature || null,
+          cough: paxHealthDeclaration?.cough || false,
+          covid_contact: paxHealthDeclaration?.covid_contact || false,
+          high_fever: paxHealthDeclaration?.high_fever || false,
+          id_number: paxHealthDeclaration?.id_number || null,
+          id_type: paxHealthDeclaration?.id_type || null,
+          lasts_places: paxHealthDeclaration?.lasts_places || null,
+          legal_figure: paxHealthDeclaration?.legal_figure || null,
+          legal_representative: paxHealthDeclaration?.legal_representative || null,
+          pneumonia: paxHealthDeclaration?.pneumonia || false,
+          respiratory_distress: paxHealthDeclaration?.respiratory_distress || false,
+          signature: paxHealthDeclaration?.signature || null,
+          smell_loss: paxHealthDeclaration?.smell_loss || false,
+          sore_throat: paxHealthDeclaration?.sore_throat || false,
+          taste_loss: paxHealthDeclaration?.taste_loss || false,
+        })
       })
+
       if (pax?.id) {
         guestForm.addControl('id', new FormControl(pax.id));
         guestForm.addControl('guests_id', new FormControl(pax.guests_id.id));

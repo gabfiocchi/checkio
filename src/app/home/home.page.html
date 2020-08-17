@@ -479,21 +479,33 @@
           </ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          <div *ngFor="let guest of additional_guests; let i = index;">
-            <ion-list-header>
-              {{ 'section.additional_guests.guest_info' | translate: { number: (i + 1) } }}
-            </ion-list-header>
-            <ion-item *ngFor="let entry of healthDeclaration">
-              <ion-label class="ion-text-wrap">{{entry.label}}</ion-label>
-              <ion-checkbox mode="md" slot="end"></ion-checkbox>
-            </ion-item>
-            <!-- cities_last_weeks -->
-            <ion-item>
-              <ion-label position="stacked" class="ion-text-wrap">
-                {{ 'health_declaration.cities_last_weeks' | translate }}
-              </ion-label>
-              <ion-textarea name="cities_last_weeks" enterkeyhint="next"></ion-textarea>
-            </ion-item>
+          <div *ngFor="let guest of additional_guests; let i = index;" formArrayName="guests">
+            <ng-container [formGroupName]="i">
+              <ion-list-header>
+                {{ 'section.additional_guests.guest_info' | translate: { number: (i + 1) } }}
+              </ion-list-header>
+              <!-- <ion-item *ngFor="let entry of healthDeclaration" formGroupName="health_declaration">
+                <ion-label class="ion-text-wrap">{{entry.label}}</ion-label>
+                <ion-checkbox [formControlName]="entry.key" mode="md" slot="end"></ion-checkbox>
+              </ion-item> -->
+              <!-- cities_last_weeks -->
+              <ion-item>
+                <ion-label position="floating" class="ion-text-wrap">
+                  {{ 'form.first_name' | translate }}
+                </ion-label>
+                <ion-input formControlName="first_name" name="first_name" type="text" enterkeyhint="next"></ion-input>
+              </ion-item>
+              <ion-item formGroupName="health_declaration" *ngFor="let entry of healthDeclaration">
+                <ion-label class="ion-text-wrap">{{entry.label}}</ion-label>
+                <ion-checkbox [formControlName]="entry.key" mode="md" slot="end"></ion-checkbox>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked" class="ion-text-wrap">
+                  {{ 'health_declaration.cities_last_weeks' | translate }}
+                </ion-label>
+                <ion-textarea name="cities_last_weeks" enterkeyhint="next"></ion-textarea>
+              </ion-item>
+            </ng-container>
           </div>
         </ion-card-content>
         <ion-card-content class="footer">
