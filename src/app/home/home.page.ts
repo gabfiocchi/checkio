@@ -47,7 +47,8 @@ export class HomePage implements OnInit, OnDestroy {
     // clearTimeout(this.timerStop);
   }
   async getData() {
-    this.step = 5;
+    // this.step = 5;
+    this.step = 0;
     this.reservation_code = this.route.snapshot.paramMap.get('reservation_code');
     const reservation = await this.apirestService.getReservation(this.reservation_code);
     this.reservation = reservation.data;
