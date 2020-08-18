@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { ApirestService } from '../services/apirest.service';
-import { ActionSheetController, LoadingController, ModalController } from '@ionic/angular';
+import { ActionSheetController, LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
@@ -30,11 +30,12 @@ export class HomePage implements OnInit, OnDestroy {
     private apirestService: ApirestService,
     private filesService: FilesService,
     private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
     private actionSheetController: ActionSheetController,
     private translateService: TranslateService,
     private loadingController: LoadingController,
     private modalController: ModalController,
-    private formBuilder: FormBuilder,
+    private toastController: ToastController,
   ) { }
 
   ngOnInit() {
@@ -68,7 +69,7 @@ export class HomePage implements OnInit, OnDestroy {
      */
 
     // this.language = 'es';
-    // this.step = 5;
+    // this.step = 4;
   }
   setLanguage(language) {
     console.log('language', language)
@@ -142,11 +143,9 @@ export class HomePage implements OnInit, OnDestroy {
 
   async setHealthDeclaration() {
     this.healthDeclaration = [{
+      // TODO: add this.
       // address
       // clarification_of_signature
-      // id_number
-      // id_type
-      // lasts_places
       // legal_figure
       // legal_representative
       // signature
@@ -173,6 +172,9 @@ export class HomePage implements OnInit, OnDestroy {
     }, {
       key: 'covid_contact',
       label: await this.translateService.get('health_declaration.covid_contact').toPromise(),
+    }, {
+      key: 'lasts_places',
+      label: await this.translateService.get('health_declaration.lasts_places').toPromise(),
     }]
   }
   prevStep() {
@@ -192,38 +194,6 @@ export class HomePage implements OnInit, OnDestroy {
   async completeSteps() {
     console.log('save', this.form.value)
     console.log('this.form.value.guests', this.form.value.guests)
-    const formData = JSON.parse(JSON.stringify(this.form.value));
-
-    formData.guests = formData.guests.map((
-      { id, guests_id, ...args }
-    ) => {
-
-      console.log('args', args)
-      if (args.document_back && args.document_back.id) {
-        args.document_back = args.document_back.id;
-      }
-      if (args.document_front && args.document_front.id) {
-        args.document_front = args.document_front.id;
-      }
-      if (args.signature && args.signature.id) {
-        args.signature = args.signature.id;
-      }
-      const health_declaration = args.health_declaration;
-
-      if (!health_declaration.id) {
-        delete health_declaration.id;
-      }
-      return {
-        guests_id: {
-          ...args,
-          id: guests_id,
-          health_declaration: [health_declaration]
-        },
-        id
-      }
-    });
-    console.log('formData', formData.guests)
-
     const loading = await this.loadingController.create({
       message: await this.translateService.get('loading').toPromise()
     });
@@ -232,12 +202,14 @@ export class HomePage implements OnInit, OnDestroy {
     // TODO: Filter reservations by code
     // TODO: Filter guests empty
     try {
+      const formData = JSON.parse(JSON.stringify(this.form.value));
       console.log('formData', formData)
-      const resp = await this.apirestService.updateReservation(this.reservation.id, formData);
-      console.log('resp', resp)
+      await this.apirestService.updateReservation(this.reservation.id, formData);
+      const reservation = await this.apirestService.getReservation(this.reservation_code);
+      this.reservation = reservation.data;
       this.nextStep();
     } catch (error) {
-
+      this.presentErrorImageToast('error_save_reservation');
     }
     await loading.dismiss();
   }
@@ -339,6 +311,11 @@ export class HomePage implements OnInit, OnDestroy {
     const { data } = await modal.onWillDismiss();
 
     if (data && data.signature) {
+      const loading = await this.loadingController.create({
+        message: await this.translateService.get('uploading_file').toPromise()
+      });
+      await loading.present();
+
       try {
         const filename = Date.now() + this.reservation_code;
         const resp: any = await this.filesService.upload({
@@ -349,9 +326,10 @@ export class HomePage implements OnInit, OnDestroy {
 
         (this.guests.at(guestIndex) as FormGroup).get('signature').patchValue(resp.data);
       } catch (error) {
-        // TODO: Display error toast
-        console.log('error', error)
+        this.presentErrorImageToast('error_upload_field');
       }
+
+      await loading.dismiss();
     }
   }
 
@@ -359,6 +337,10 @@ export class HomePage implements OnInit, OnDestroy {
     const field = event.target.name;
     const file = event.target.files.item(0);
 
+    const loading = await this.loadingController.create({
+      message: await this.translateService.get('uploading_file').toPromise()
+    });
+    await loading.present();
     try {
       const resp: any = await this.filesService.upload({
         data: file
@@ -366,8 +348,23 @@ export class HomePage implements OnInit, OnDestroy {
 
       (this.guests.at(guestIndex) as FormGroup).get(field).patchValue(resp.data);
     } catch (error) {
-      // TODO: Display error toast
-      console.log('error', error)
+      this.presentErrorImageToast('error_upload_field');
     }
+
+    await loading.dismiss();
+  }
+
+
+  async presentErrorImageToast(translation: string) {
+    const toast = await this.toastController.create({
+      message: await this.translateService.get(translation).toPromise(),
+      duration: 15000,
+      color: 'danger',
+      buttons: [{
+        text: await this.translateService.get('form.done').toPromise(),
+        role: 'cancel',
+      }]
+    });
+    toast.present();
   }
 }

@@ -8,6 +8,9 @@
         },
         "additional_guests": {
             "guest_info": "Huésped #{{number}}"
+        },
+        "resume": {
+            "title": "Mi reserva"
         }
     },
     "steps": {
@@ -94,7 +97,8 @@
         "taste_Loss": "Pérdida del sabor",
         "pneumonia": "Neumonía",
         "cities_last_weeks": "¿Cuáles fueron las últimas ciudades o países visitados en los últimos 14 días?",
-        "covid_contact": "¿Has estado en contacto con un COVID-19 positivo en los últimos 14 días?"
+        "covid_contact": "¿Has estado en contacto con un COVID-19 positivo en los últimos 14 días?",
+        "same_address": "¿Todos los huéspedes viven en el mismo domicilio?"
     },
     "months": {
         "names": [
@@ -118,7 +122,10 @@
         "save": "Guardar"
     },
     "loading": "Cargando...",
+    "uploading_file": "Subiendo archivo...",
     "success": "Su reserva ha sido actualizada",
     "check_in": "Fecha de Ingreso: <b>{{time}}</b>",
-    "check_out": "Fecha de Egreso: <b>{{time}}</b>"
+    "check_out": "Fecha de Egreso: <b>{{time}}</b>",
+    "error_upload_field": "No se ha podido subir el archivo, verifica tu conexión y vuelve a intentarlo.",
+    "error_save_reservation": "No se ha podido guardar la reserva, verifica tu conexión y vuelve a intentarlo."
 }

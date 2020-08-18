@@ -106,8 +106,8 @@
               <h3>
                 {{ 'form.document_front' | translate }}
               </h3>
-              <ion-input name="document_front" type="file" accept="image/*" (change)="updateImage($event, 0)"
-                enterkeyhint="next"></ion-input>
+              <ion-input class="input-file" name="document_front" type="file" accept="image/*"
+                (change)="updateImage($event, 0)" enterkeyhint="next"></ion-input>
               <img *ngIf="form.value.guests[0]?.document_front?.data"
                 [src]="form.value.guests[0]?.document_front?.data?.full_url" [alt]="'form.document_front' | translate">
             </ion-label>
@@ -118,8 +118,8 @@
               <h3>
                 {{ 'form.document_back' | translate }}
               </h3>
-              <ion-input name="document_back" type="file" accept="image/*" (change)="updateImage($event, 0)"
-                enterkeyhint="next"></ion-input>
+              <ion-input class="input-file" name="document_back" type="file" accept="image/*"
+                (change)="updateImage($event, 0)" enterkeyhint="next"></ion-input>
               <img *ngIf="form.value.guests[0]?.document_back?.data"
                 [src]="form.value.guests[0]?.document_back?.data?.full_url" [alt]="'form.document_back' | translate">
             </ion-label>
@@ -310,8 +310,8 @@
                 <h3>
                   {{ 'form.document_front' | translate }}
                 </h3>
-                <ion-input name="document_front" type="file" accept="image/*" (change)="updateImage($event, i + 1)"
-                  enterkeyhint="next"></ion-input>
+                <ion-input class="input-file" name="document_front" type="file" accept="image/*"
+                  (change)="updateImage($event, i + 1)" enterkeyhint="next"></ion-input>
                 <img *ngIf="form.value.guests[i + 1]?.document_front?.data"
                   [src]="form.value.guests[i + 1]?.document_front?.data?.full_url"
                   [alt]="'form.document_front' | translate">
@@ -323,8 +323,8 @@
                 <h3>
                   {{ 'form.document_back' | translate }}
                 </h3>
-                <ion-input name="document_back" type="file" accept="image/*" (change)="updateImage($event, i + 1)"
-                  enterkeyhint="next"></ion-input>
+                <ion-input class="input-file" name="document_back" type="file" accept="image/*"
+                  (change)="updateImage($event, i + 1)" enterkeyhint="next"></ion-input>
                 <img *ngIf="form.value.guests[i + 1]?.document_back?.data"
                   [src]="form.value.guests[i + 1]?.document_back?.data?.full_url"
                   [alt]="'form.document_back' | translate">
@@ -476,26 +476,29 @@
           </ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          <div *ngFor="let guest of additional_guests; let i = index;" formArrayName="guests">
+          <ion-list-header>
+          </ion-list-header>
+          <ion-item>
+            <ion-label class="ion-text-wrap">{{ 'health_declaration.same_address' | translate }}</ion-label>
+            <ion-toggle color="primary" mode="md" slot="end"></ion-toggle>
+          </ion-item>
+          <ion-item-group *ngFor="let guest of additional_guests; let i = index;" formArrayName="guests">
             <ng-container [formGroupName]="i">
               <ion-list-header>
                 {{ 'section.additional_guests.guest_info' | translate: { number: (i + 1) } }}
               </ion-list-header>
-              <!-- <ion-item *ngFor="let entry of healthDeclaration" formGroupName="health_declaration">
-                <ion-label class="ion-text-wrap">{{entry.label}}</ion-label>
-                <ion-checkbox [formControlName]="entry.key" mode="md" slot="end"></ion-checkbox>
-              </ion-item> -->
-              <!-- cities_last_weeks -->
               <ion-item>
                 <ion-label position="floating" class="ion-text-wrap">
                   {{ 'form.first_name' | translate }}
                 </ion-label>
-                <ion-input formControlName="first_name" name="first_name" type="text" enterkeyhint="next"></ion-input>
+                <ion-input readonly formControlName="first_name" name="first_name" type="text" enterkeyhint="next">
+                </ion-input>
               </ion-item>
               <ion-item formGroupName="health_declaration" *ngFor="let entry of healthDeclaration">
                 <ion-label class="ion-text-wrap">{{entry.label}}</ion-label>
                 <ion-checkbox [formControlName]="entry.key" mode="md" slot="end"></ion-checkbox>
               </ion-item>
+              <!-- cities_last_weeks -->
               <ion-item formGroupName="health_declaration">
                 <ion-label position="stacked" class="ion-text-wrap">
                   {{ 'health_declaration.cities_last_weeks' | translate }}
@@ -504,7 +507,7 @@
                 </ion-textarea>
               </ion-item>
             </ng-container>
-          </div>
+          </ion-item-group>
         </ion-card-content>
         <ion-card-content class="footer">
           <ion-button fill="clear" size="small" (click)="prevStep()">
@@ -516,16 +519,60 @@
         </ion-card-content>
       </ion-card>
     </form>
-    <ion-card *ngIf="step === 5" class="success">
-      <ion-icon color="success" name="checkmark-circle-outline"></ion-icon>
-      <ion-card-header>
-        <ion-card-title>
-          {{ 'success' | translate }}
-        </ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <!-- TODO: Add reservation summary -->
-      </ion-card-content>
-    </ion-card>
+    <ng-container *ngIf="step === 5">
+      <ion-card class="success">
+        <ion-icon color="success" name="checkmark-circle-outline"></ion-icon>
+        <ion-card-header>
+          <ion-card-title>
+            {{ 'success' | translate }}
+          </ion-card-title>
+        </ion-card-header>
+      </ion-card>
+      <ion-list-header>
+        {{ 'section.resume.title' | translate }}
+      </ion-list-header>
+      <ion-card class="resume" *ngFor="let guest of reservation.guests; let i = index;">
+        <ion-card-header>
+          <ion-card-title>
+            {{ guest.guests_id.first_name }} {{ guest.guests_id.last_name }}
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list lines="none">
+            <!-- fecha de nacimiento -->
+            <ion-item *ngIf="guest.guests_id.birthdate">
+              <ion-label class="ion-text-wrap">
+                {{ 'form.birthday' | translate }}: {{ guest.guests_id.birthdate }}
+              </ion-label>
+            </ion-item>
+            <!-- correo electrónico -->
+            <ion-item *ngIf="guest.guests_id.id_type && guest.guests_id.id_number">
+              <ion-label class="ion-text-wrap">
+                {{ 'form.document_' + guest.guests_id.id_type | translate }}: {{ guest.guests_id.id_number }}
+              </ion-label>
+            </ion-item>
+            <ion-item *ngIf="guest.guests_id.email">
+              <ion-label class="ion-text-wrap">
+                {{ 'form.email' | translate }}: {{ guest.guests_id.email }}
+              </ion-label>
+            </ion-item>
+            <!-- telefono -->
+            <ion-item *ngIf="guest.guests_id.phone">
+              <ion-label class="ion-text-wrap">
+                {{ 'form.phone' | translate }}: {{ guest.guests_id.phone }}
+              </ion-label>
+            </ion-item>
+            <!-- direccion completa -->
+            <ion-item
+              *ngIf="guest.guests_id.address && guest.guests_id.city && guest.guests_id.state && guest.guests_id.country">
+              <ion-label class="ion-text-wrap">
+                {{ 'form.address' | translate }}: {{ guest.guests_id.address }}, {{ guest.guests_id.city }},
+                {{ guest.guests_id.state }}, {{ guest.guests_id.country }}
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+    </ng-container>
   </section>
 </ion-content>
