@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   apirest: {
-    base: 'https://checkio.thinkapp.dev/api',
+    base: 'https://admin.checkio.app/api',
     files: '/files',
     configuration: '/items/configuration?single=1&fields=*,background_image.data.*&filter[parent][eq]=',
     languages: '/items/languages',
