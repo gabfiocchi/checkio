@@ -1,5 +1,7 @@
 <ion-content #content>
   <section class="startup ion-text-center" *ngIf="!language">
+    <img *ngIf="configuration?.logo?.data?.full_url" class="logo" [src]="configuration?.logo?.data?.full_url"
+      [alt]="configuration?.name">
     <ion-card>
       <ion-card-header>
         <ion-card-title class="flash" [ngClass]="{ 'animate': welcomeMessageAnimate }">
@@ -531,48 +533,50 @@
       <ion-list-header>
         {{ 'section.resume.title' | translate }}
       </ion-list-header>
-      <ion-card class="resume" *ngFor="let guest of reservation.guests; let i = index;">
-        <ion-card-header>
-          <ion-card-title>
-            {{ guest.guests_id.first_name }} {{ guest.guests_id.last_name }}
-          </ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-list lines="none">
-            <!-- fecha de nacimiento -->
-            <ion-item *ngIf="guest.guests_id.birthdate">
-              <ion-label class="ion-text-wrap">
-                {{ 'form.birthday' | translate }}: {{ guest.guests_id.birthdate }}
-              </ion-label>
-            </ion-item>
-            <!-- correo electrónico -->
-            <ion-item *ngIf="guest.guests_id.id_type && guest.guests_id.id_number">
-              <ion-label class="ion-text-wrap">
-                {{ 'form.document_' + guest.guests_id.id_type | translate }}: {{ guest.guests_id.id_number }}
-              </ion-label>
-            </ion-item>
-            <ion-item *ngIf="guest.guests_id.email">
-              <ion-label class="ion-text-wrap">
-                {{ 'form.email' | translate }}: {{ guest.guests_id.email }}
-              </ion-label>
-            </ion-item>
-            <!-- telefono -->
-            <ion-item *ngIf="guest.guests_id.phone">
-              <ion-label class="ion-text-wrap">
-                {{ 'form.phone' | translate }}: {{ guest.guests_id.phone }}
-              </ion-label>
-            </ion-item>
-            <!-- direccion completa -->
-            <ion-item
-              *ngIf="guest.guests_id.address && guest.guests_id.city && guest.guests_id.state && guest.guests_id.country">
-              <ion-label class="ion-text-wrap">
-                {{ 'form.address' | translate }}: {{ guest.guests_id.address }}, {{ guest.guests_id.city }},
-                {{ guest.guests_id.state }}, {{ guest.guests_id.country }}
-              </ion-label>
-            </ion-item>
-          </ion-list>
-        </ion-card-content>
-      </ion-card>
+      <ng-container *ngFor="let guest of reservation.guests; let i = index;">
+        <ion-card class="resume" *ngIf="guest.guests_id.first_name || guest.guests_id.last_name">
+          <ion-card-header>
+            <ion-card-title>
+              {{ guest.guests_id.first_name }} {{ guest.guests_id.last_name }}
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-list lines="none">
+              <!-- fecha de nacimiento -->
+              <ion-item *ngIf="guest.guests_id.birthdate">
+                <ion-label class="ion-text-wrap">
+                  {{ 'form.birthday' | translate }}: {{ guest.guests_id.birthdate }}
+                </ion-label>
+              </ion-item>
+              <!-- correo electrónico -->
+              <ion-item *ngIf="guest.guests_id.id_type && guest.guests_id.id_number">
+                <ion-label class="ion-text-wrap">
+                  {{ 'form.document_' + guest.guests_id.id_type | translate }}: {{ guest.guests_id.id_number }}
+                </ion-label>
+              </ion-item>
+              <ion-item *ngIf="guest.guests_id.email">
+                <ion-label class="ion-text-wrap">
+                  {{ 'form.email' | translate }}: {{ guest.guests_id.email }}
+                </ion-label>
+              </ion-item>
+              <!-- telefono -->
+              <ion-item *ngIf="guest.guests_id.phone">
+                <ion-label class="ion-text-wrap">
+                  {{ 'form.phone' | translate }}: {{ guest.guests_id.phone }}
+                </ion-label>
+              </ion-item>
+              <!-- direccion completa -->
+              <ion-item
+                *ngIf="guest.guests_id.address && guest.guests_id.city && guest.guests_id.state && guest.guests_id.country">
+                <ion-label class="ion-text-wrap">
+                  {{ 'form.address' | translate }}: {{ guest.guests_id.address }}, {{ guest.guests_id.city }},
+                  {{ guest.guests_id.state }}, {{ guest.guests_id.country }}
+                </ion-label>
+              </ion-item>
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+      </ng-container>
     </ng-container>
   </section>
 </ion-content>

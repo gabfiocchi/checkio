@@ -67,9 +67,6 @@ export class HomePage implements OnInit, OnDestroy {
      *  b. Listado para elegir los idiomas que están soportados, consultar el idioma del dispositivo para sugerir uno. 
     //  * 6. Ver si usamos API de autocompletar las direcciones.
      */
-
-    // this.language = 'es';
-    // this.step = 4;
   }
   setLanguage(language) {
     console.log('language', language)
