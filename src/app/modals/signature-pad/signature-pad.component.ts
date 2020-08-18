@@ -36,6 +36,7 @@ export class SignaturePadComponent implements OnInit, OnDestroy {
 
       this.signaturePad = new SignaturePad(this.canvas, {
         backgroundColor: 'rgb(255, 255, 255)',
+        penColor: 'blue'
       });
 
       setTimeout(() => {
