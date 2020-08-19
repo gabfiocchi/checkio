@@ -68,9 +68,9 @@ export class HomePage implements OnInit, OnDestroy {
     //  * 6. Ver si usamos API de autocompletar las direcciones.
      */
   }
-  setLanguage(language) {
-    console.log('language', language)
-    this.language = language;
+  async setLanguage(value) {
+    console.log('language', value.language)
+    this.language = value.language;
   }
   async moreOptions() {
     const buttons = [];
@@ -171,7 +171,7 @@ export class HomePage implements OnInit, OnDestroy {
       label: await this.translateService.get('health_declaration.covid_contact').toPromise(),
     }, {
       key: 'lasts_places',
-      label: await this.translateService.get('health_declaration.lasts_places').toPromise(),
+      label: await this.translateService.get('health_declaration.cities_last_weeks').toPromise(),
     }]
   }
   prevStep() {
