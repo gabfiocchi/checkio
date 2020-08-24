@@ -56,7 +56,7 @@ export class ApirestService {
 
     return this.http.patch<any>(environment.apirest.base + environment.apirest.reservationUpdate + id, body, {
       headers: {
-        Authorization: 'Bearer web'
+        Authorization: 'Bearer B8EBC4A8481EBD88289AFCBC08A04A70'
       }
     }).toPromise();
   }
